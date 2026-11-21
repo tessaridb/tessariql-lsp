@@ -1,1 +1,1 @@
-SELECT name, age FROM people
+SELECT name, age FROM people;

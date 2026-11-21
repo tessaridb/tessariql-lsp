@@ -1,1 +1,1 @@
-DEFINE TOPIC order_events
+DEFINE TOPIC order_events;

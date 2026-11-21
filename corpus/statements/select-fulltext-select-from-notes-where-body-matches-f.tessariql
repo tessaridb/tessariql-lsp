@@ -1,1 +1,1 @@
-SELECT * FROM notes WHERE body MATCHES FUZZY 'lovelace'
+SELECT * FROM notes WHERE body MATCHES FUZZY 'lovelace';

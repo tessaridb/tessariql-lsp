@@ -1,1 +1,1 @@
-SELECT * FROM users FULL JOIN orders ON users.name = orders.who
+SELECT * FROM users FULL JOIN orders ON users.name = orders.who;

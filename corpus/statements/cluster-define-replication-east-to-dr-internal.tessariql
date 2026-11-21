@@ -1,1 +1,1 @@
-DEFINE REPLICATION east TO 'dr.internal:9080' FOR DATABASE prod.orders
+DEFINE REPLICATION east TO 'dr.internal:9080' FOR DATABASE prod.orders;

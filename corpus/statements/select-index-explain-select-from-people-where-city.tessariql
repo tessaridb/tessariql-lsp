@@ -1,1 +1,1 @@
-EXPLAIN SELECT * FROM people WHERE city = 'Paris'
+EXPLAIN SELECT * FROM people WHERE city = 'Paris';

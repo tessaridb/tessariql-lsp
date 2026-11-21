@@ -1,1 +1,1 @@
-UPDATE people SET age = 18 WHERE name = 'ada' RETURN AFTER
+UPDATE people SET age = 18 WHERE name = 'ada' RETURN AFTER;

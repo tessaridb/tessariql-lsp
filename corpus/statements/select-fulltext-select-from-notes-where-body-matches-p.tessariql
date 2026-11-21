@@ -1,1 +1,1 @@
-SELECT * FROM notes WHERE body MATCHES PREFIX 'lovel'
+SELECT * FROM notes WHERE body MATCHES PREFIX 'lovel';

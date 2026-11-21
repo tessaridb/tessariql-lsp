@@ -1,1 +1,1 @@
-SELECT id FROM notes WHERE body MATCHES 'ada program'
+SELECT id FROM notes WHERE body MATCHES 'ada program';

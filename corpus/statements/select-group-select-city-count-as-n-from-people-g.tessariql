@@ -1,1 +1,1 @@
-SELECT city, count(*) AS n FROM people GROUP BY city
+SELECT city, count(*) AS n FROM people GROUP BY city;

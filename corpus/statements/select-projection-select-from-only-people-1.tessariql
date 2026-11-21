@@ -1,1 +1,1 @@
-SELECT * FROM ONLY people:1
+SELECT * FROM ONLY people:1;

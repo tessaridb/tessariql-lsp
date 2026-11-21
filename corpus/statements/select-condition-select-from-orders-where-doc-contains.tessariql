@@ -1,1 +1,1 @@
-SELECT * FROM orders WHERE doc CONTAINS { customer: { city: 'Paris' } }
+SELECT * FROM orders WHERE doc CONTAINS { customer: { city: 'Paris' } };

@@ -1,1 +1,1 @@
-DEFINE VIEW engineers AS SELECT * FROM staff WHERE team = 'eng'
+DEFINE VIEW engineers AS SELECT * FROM staff WHERE team = 'eng';

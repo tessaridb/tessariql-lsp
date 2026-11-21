@@ -1,1 +1,1 @@
-REVOKE write ON users FROM ada
+REVOKE write ON users FROM ada;

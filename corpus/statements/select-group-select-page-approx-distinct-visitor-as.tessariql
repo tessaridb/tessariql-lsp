@@ -1,1 +1,1 @@
-SELECT page, approx_distinct(visitor) AS users, approx_quantile(ms, 0.99) AS p99 FROM visits GROUP BY page
+SELECT page, approx_distinct(visitor) AS users, approx_quantile(ms, 0.99) AS p99 FROM visits GROUP BY page;

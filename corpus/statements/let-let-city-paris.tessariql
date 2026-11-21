@@ -1,1 +1,1 @@
-LET $city = 'Paris'
+LET $city = 'Paris';

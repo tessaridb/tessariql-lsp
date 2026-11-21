@@ -1,1 +1,1 @@
-DEFINE USER ada ON corpus.app ROLE editor PASSWORD 'correct horse'
+DEFINE USER ada ON corpus.app ROLE editor PASSWORD 'correct horse';

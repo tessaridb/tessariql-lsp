@@ -1,1 +1,1 @@
-SELECT * FROM people WHERE city = 'Paris' AND age = 17
+SELECT * FROM people WHERE city = 'Paris' AND age = 17;

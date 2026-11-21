@@ -1,1 +1,1 @@
-SELECT * FROM person:1->knows
+SELECT * FROM person:1->knows;

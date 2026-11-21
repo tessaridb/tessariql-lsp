@@ -1,1 +1,1 @@
-RELATE person:1->works_at->company:1
+RELATE person:1->works_at->company:1;

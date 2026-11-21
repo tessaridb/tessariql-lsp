@@ -1,1 +1,1 @@
-SELECT * FROM notes WHERE body MATCHES INFIX 'pile'
+SELECT * FROM notes WHERE body MATCHES INFIX 'pile';

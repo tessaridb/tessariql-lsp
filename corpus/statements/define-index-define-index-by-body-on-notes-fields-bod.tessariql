@@ -1,1 +1,1 @@
-DEFINE INDEX by_body ON notes FIELDS body SEARCH
+DEFINE INDEX by_body ON notes FIELDS body SEARCH;

@@ -1,1 +1,1 @@
-SELECT * FROM people:1 VERSION 5
+SELECT * FROM people:1 VERSION 5;

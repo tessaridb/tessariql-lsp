@@ -1,1 +1,1 @@
-DEFINE TOPIC payments DEDUPLICATE 5m ON payment_id
+DEFINE TOPIC payments DEDUPLICATE 5m ON payment_id;

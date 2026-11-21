@@ -1,1 +1,1 @@
-DEFINE EDGE works_at IN social FROM person TO company
+DEFINE EDGE works_at IN social FROM person TO company;

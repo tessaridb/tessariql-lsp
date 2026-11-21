@@ -1,1 +1,1 @@
-SELECT count(*) AS held, time::bucket(at, 1h) AS window FROM readings GROUP BY time::bucket(at, 1h)
+SELECT count(*) AS held, time::bucket(at, 1h) AS window FROM readings GROUP BY time::bucket(at, 1h);

@@ -1,1 +1,1 @@
-SELECT * FROM users WHERE name IN (SELECT who FROM orders LIMIT 100)
+SELECT * FROM users WHERE name IN (SELECT who FROM orders LIMIT 100);

@@ -1,1 +1,1 @@
-DEFINE FIELD holder ON ledgers TYPE string REQUIRED
+DEFINE FIELD holder ON ledgers TYPE string REQUIRED;

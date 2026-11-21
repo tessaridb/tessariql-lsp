@@ -1,1 +1,1 @@
-DEFINE FIELD body ON notes TYPE string ANALYZER simple
+DEFINE FIELD body ON notes TYPE string ANALYZER simple;

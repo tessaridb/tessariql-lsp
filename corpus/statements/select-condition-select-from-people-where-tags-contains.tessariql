@@ -1,1 +1,1 @@
-SELECT * FROM people WHERE tags CONTAINS 'urgent'
+SELECT * FROM people WHERE tags CONTAINS 'urgent';

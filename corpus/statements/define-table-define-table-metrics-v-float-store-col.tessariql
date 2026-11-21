@@ -1,1 +1,1 @@
-DEFINE TABLE metrics (v float) STORE COLUMN
+DEFINE TABLE metrics (v float) STORE COLUMN;

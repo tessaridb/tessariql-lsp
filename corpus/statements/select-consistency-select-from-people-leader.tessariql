@@ -1,1 +1,1 @@
-SELECT * FROM people LEADER
+SELECT * FROM people LEADER;

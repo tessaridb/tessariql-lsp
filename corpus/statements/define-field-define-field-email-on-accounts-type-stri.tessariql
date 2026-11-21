@@ -1,1 +1,1 @@
-DEFINE FIELD email ON accounts TYPE string
+DEFINE FIELD email ON accounts TYPE string;

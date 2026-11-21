@@ -1,1 +1,1 @@
-ALTER USER reader SET ROLE editor
+ALTER USER reader SET ROLE editor;

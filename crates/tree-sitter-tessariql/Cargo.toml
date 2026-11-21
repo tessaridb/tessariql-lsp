@@ -1,0 +1,21 @@
+[package]
+name = "tree-sitter-tessariql"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+description = "Tree-sitter TessariQL grammar — error-tolerant parsing for the TessariQL language server, validated against an engine statement corpus"
+keywords = ["tree-sitter", "tessariql", "tessaridb", "parser", "language-server"]
+categories = ["parsing"]
+build = "build.rs"
+
+[build-dependencies]
+cc.workspace = true
+
+[dependencies]
+tree-sitter.workspace = true
+
+[lib]
+path = "bindings/rust/lib.rs"

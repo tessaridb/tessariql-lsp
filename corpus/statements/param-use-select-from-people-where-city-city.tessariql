@@ -1,1 +1,1 @@
-SELECT * FROM people WHERE city = $city
+SELECT * FROM people WHERE city = $city;

@@ -1,1 +1,1 @@
-SELECT * FROM people WHERE age = NONE
+SELECT * FROM people WHERE age = NONE;

@@ -1,1 +1,1 @@
-SELECT * FROM people TIMEOUT 5s
+SELECT * FROM people TIMEOUT 5s;

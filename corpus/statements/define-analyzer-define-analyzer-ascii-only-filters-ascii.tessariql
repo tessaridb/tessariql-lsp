@@ -1,1 +1,1 @@
-DEFINE ANALYZER ascii_only FILTERS ascii
+DEFINE ANALYZER ascii_only FILTERS ascii;

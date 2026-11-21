@@ -1,1 +1,1 @@
-DEFINE TABLE IF NOT EXISTS readings (level int)
+DEFINE TABLE IF NOT EXISTS readings (level int);

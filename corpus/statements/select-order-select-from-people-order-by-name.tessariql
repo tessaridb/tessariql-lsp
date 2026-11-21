@@ -1,1 +1,1 @@
-SELECT * FROM people ORDER BY name
+SELECT * FROM people ORDER BY name;

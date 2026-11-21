@@ -1,1 +1,1 @@
-DEFINE TABLE staff (name string, team string)
+DEFINE TABLE staff (name string, team string);

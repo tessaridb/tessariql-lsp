@@ -46,17 +46,17 @@ database's licence. The language server stands on its own:
 
 | path | what it is |
 |---|---|
-| `crates/` | the workspace: `tessariql-lsp-constants`, `tessariql-lsp-types`, `tessariql-lsp-core` (open documents), `tessariql-lsp-observability` (tracing to stderr — stdout is the protocol stream), `tessariql-lsp` (the binary: LSP adapter + composition root) |
+| `crates/` | the workspace: `tessariql-lsp-constants`, `tessariql-lsp-types`, `tessariql-lsp-core` (open documents), `tessariql-lsp-observability` (tracing to stderr — stdout is the protocol stream), `tree-sitter-tessariql` (the grammar: C parser + Rust binding, error-tolerant by construction), `tessariql-lsp` (the binary: LSP adapter + composition root) |
 | `docs/DESIGN.md` | the design record — stack choice, grammar strategy, milestones, structure worksheet |
 | `Dockerfile` | two-stage build; the image runs `tessariql-lsp` with stdio as its only interface — no ports on purpose |
-| `corpus/` | TessariQL statements the grammar is checked against (M2) |
+| `corpus/` | 172 engine-validated TessariQL statements (tessaridb 0.50.0) the grammar is checked against — every statement parses with zero ERROR nodes, and mutation smoke over the corpus never panics the parser |
 
 ## Status
 
 | milestone | what it brings | state |
 |---|---|---|
 | M1 | LSP lifecycle over stdio, document sync | done |
-| M2 | resilient TessariQL grammar (tree-sitter), syntax diagnostics | next |
+| M2 | resilient TessariQL grammar (tree-sitter), syntax diagnostics | grammar + corpus done — diagnostics on top land next |
 | M3 | completion — keywords, statements, functions |
 | M4 | hover — keywords, statements, functions with doc links |
 | M5 | catalog-aware completion and run-statement under cursor, behind a connection config |
@@ -66,8 +66,14 @@ database's licence. The language server stands on its own:
 
 ```sh
 cargo build
-cargo test
+cargo test            # includes the corpus conformance suite and the mutation smoke
+cargo clippy --workspace --all-targets --all-features -- -D warnings
 ```
+
+The grammar lives at `crates/tree-sitter-tessariql/grammar.js`; regenerate the
+C parser after editing it with `npx -y tree-sitter-cli@0.25.10 generate --abi 14`
+run from that crate's directory. The corpus is regenerated against a live node
+per engine release (see `docs/DESIGN.md`).
 
 ```sh
 docker build -t tessaridb/tessariql-lsp:dev .

@@ -1,1 +1,1 @@
-DEFINE ANALYZER basic FILTERS lowercase, ascii
+DEFINE ANALYZER basic FILTERS lowercase, ascii;

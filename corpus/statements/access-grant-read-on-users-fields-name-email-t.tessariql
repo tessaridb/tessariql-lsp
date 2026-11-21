@@ -1,1 +1,1 @@
-GRANT read ON users FIELDS name, email TO ada
+GRANT read ON users FIELDS name, email TO ada;

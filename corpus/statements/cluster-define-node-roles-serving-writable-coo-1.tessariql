@@ -1,1 +1,1 @@
-DEFINE NODE ROLES serving, writable, coordinating ENDPOINTS 'db-1.internal:9000'
+DEFINE NODE ROLES serving, writable, coordinating ENDPOINTS 'db-1.internal:9000';

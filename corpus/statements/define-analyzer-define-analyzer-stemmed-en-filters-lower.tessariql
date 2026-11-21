@@ -1,1 +1,1 @@
-DEFINE ANALYZER stemmed_en FILTERS lowercase, stemmer
+DEFINE ANALYZER stemmed_en FILTERS lowercase, stemmer;

@@ -1,1 +1,1 @@
-SELECT n, sum(n) OVER (ORDER BY n) AS running FROM scores WHERE n > 0
+SELECT n, sum(n) OVER (ORDER BY n) AS running FROM scores WHERE n > 0;

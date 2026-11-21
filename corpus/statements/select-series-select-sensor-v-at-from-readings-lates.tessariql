@@ -1,1 +1,1 @@
-SELECT sensor, v, at FROM readings LATEST BY sensor
+SELECT sensor, v, at FROM readings LATEST BY sensor;

@@ -1,1 +1,1 @@
-DEFINE INDEX by_age ON people FIELDS age
+DEFINE INDEX by_age ON people FIELDS age;

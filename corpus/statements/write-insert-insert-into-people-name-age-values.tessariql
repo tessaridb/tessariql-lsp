@@ -1,1 +1,1 @@
-INSERT INTO people (name, age) VALUES ('inserted', 1)
+INSERT INTO people (name, age) VALUES ('inserted', 1);

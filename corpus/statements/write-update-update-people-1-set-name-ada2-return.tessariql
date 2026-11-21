@@ -1,1 +1,1 @@
-UPDATE people:1 SET name = 'ada2' RETURN BEFORE
+UPDATE people:1 SET name = 'ada2' RETURN BEFORE;

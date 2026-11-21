@@ -1,1 +1,1 @@
-ALTER TABLE staff ADD FIELD city TYPE string
+ALTER TABLE staff ADD FIELD city TYPE string;

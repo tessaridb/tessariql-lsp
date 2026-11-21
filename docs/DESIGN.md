@@ -55,7 +55,11 @@ reference slightly:
 
 - **M2**: a resilient TessariQL grammar as a tree-sitter grammar
   (`tree-sitter-tessariql`, C, compiled with `cc`) — always produces a tree,
-  incremental, and reusable later by editors for syntax highlighting;
+  incremental, and reusable later by editors for syntax highlighting.
+  Keywords are uppercase in the grammar with the `word:` identifier
+  extraction (the language's written convention; SG4 completion will offer
+  uppercase keywords — extending to case-insensitive keywords is recorded
+  work if the engine's lexer folding ever matters to an editor);
 - **corpus/**: statements collected from the engine's docs, changelog and
   worked examples (0.50.0), parsed both by the grammar here and executed by a
   real node — the grammar is *validated against the engine*, never assumed;
@@ -90,6 +94,10 @@ exit 0 on the M1 tree (32 rules pass). Internal crates carry the
 `tessariql-lsp-` prefix (owner 2026-11-21) so no crate name collides when
 individual crates are published later; the publishable units are the binary
 crate (`tessariql-lsp`) and the grammar crate (`tree-sitter-tessariql`).
+The grammar crate carries a WAIVED structure rule: `tree-sitter-<lang>` is the
+ecosystem-mandated name (editor and highlighter discovery assumes it), so
+RS-SET-NAMING is waived as
+`--waive RS-SET-NAMING:tree-sitter-<lang> is the ecosystem grammar-crate name (§3)`.
 
 ## 5. Milestones
 

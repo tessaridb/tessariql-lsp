@@ -1,1 +1,1 @@
-RETURN { open: 1, closed: 2 }
+RETURN { open: 1, closed: 2 };

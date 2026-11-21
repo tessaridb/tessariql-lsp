@@ -1,1 +1,1 @@
-SELECT name, city, row_number() OVER (PARTITION BY city ORDER BY name) AS nth FROM people
+SELECT name, city, row_number() OVER (PARTITION BY city ORDER BY name) AS nth FROM people;

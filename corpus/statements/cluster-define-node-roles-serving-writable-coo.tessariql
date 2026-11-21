@@ -1,1 +1,1 @@
-DEFINE NODE ROLES serving, writable, coordinating
+DEFINE NODE ROLES serving, writable, coordinating;

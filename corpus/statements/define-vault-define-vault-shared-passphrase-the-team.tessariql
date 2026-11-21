@@ -1,1 +1,1 @@
-DEFINE VAULT shared PASSPHRASE 'the team passphrase'
+DEFINE VAULT shared PASSPHRASE 'the team passphrase';

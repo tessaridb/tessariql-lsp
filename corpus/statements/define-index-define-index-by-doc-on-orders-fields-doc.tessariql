@@ -1,1 +1,1 @@
-DEFINE INDEX by_doc ON orders FIELDS doc CONTAINS
+DEFINE INDEX by_doc ON orders FIELDS doc CONTAINS;

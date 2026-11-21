@@ -1,1 +1,1 @@
-SELECT string::upper('ada') AS up FROM people LIMIT 1
+SELECT string::upper('ada') AS up FROM people LIMIT 1;

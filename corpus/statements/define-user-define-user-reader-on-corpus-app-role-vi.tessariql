@@ -1,1 +1,1 @@
-DEFINE USER reader ON corpus.app ROLE viewer PASSWORD 'a long enough one'
+DEFINE USER reader ON corpus.app ROLE viewer PASSWORD 'a long enough one';

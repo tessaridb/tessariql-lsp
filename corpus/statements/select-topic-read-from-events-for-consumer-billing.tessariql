@@ -1,1 +1,1 @@
-READ FROM events FOR CONSUMER 'billing' LIMIT 2
+READ FROM events FOR CONSUMER 'billing' LIMIT 2;
