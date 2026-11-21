@@ -107,6 +107,13 @@ The live-node integration test (`catalog_completion_and_run_statement_against_a_
 spawns the engine itself; point `TESSARIDB_TEST_BIN` at a `tessaridb` binary
 to run it.
 
+## Editors
+
+A VS Code extension lives in `editors/vscode` (build: `npm install &&
+npm run compile && npx @vscode/vsce package` — the vsix installs locally
+with `code --install-extension`); `editors/README.md` holds the install
+notes for VS Code and generic LSP clients (Neovim, Helix, Zed).
+
 ```sh
 docker build -t tessaridb/tessariql-lsp:dev .
 ```
