@@ -3,11 +3,13 @@
 //! Everything here is synchronous and I/O-free: the LSP adapter calls into the
 //! domain, never the other way around.
 
+pub mod catalog_context;
 pub mod completion;
 pub mod documents;
 pub mod error;
 pub mod hover;
 
+pub use catalog_context::{CatalogContext, catalog_context};
 pub use completion::{Completion, CompletionKind, complete};
 pub use documents::{Documents, OpenDocument};
 pub use error::{CoreError, CoreResult};

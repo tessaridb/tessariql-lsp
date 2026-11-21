@@ -59,7 +59,7 @@ database's licence. The language server stands on its own:
 | M2 | resilient TessariQL grammar (tree-sitter), syntax diagnostics | done |
 | M3 | completion — keywords, statements, functions | done |
 | M4 | hover — keywords, statements, functions with doc links | done |
-| M5 | catalog-aware completion and run-statement under cursor, behind a connection config |
+| M5 | catalog-aware completion and run-statement under cursor, behind a connection config | done |
 | M6 | packaging — VS Code extension, install notes for other editors |
 
 ## Development
@@ -74,6 +74,38 @@ The grammar lives at `crates/tree-sitter-tessariql/grammar.js`; regenerate the
 C parser after editing it with `npx -y tree-sitter-cli@0.25.10 generate --abi 14`
 run from that crate's directory. The corpus is regenerated against a live node
 per engine release (see `docs/DESIGN.md`).
+
+## Connecting a node (catalog completion + run)
+
+The server speaks to a node only when asked. Set `TESSARIQL_LSP_NODE` to a
+`host:port` and completion starts offering the node's tables (after `FROM` /
+`ON` / `TABLE` / `INTO` / `UPDATE` / `JOIN`) and their fields (inside a
+`WHERE` of a statement naming the table); the `tessariql.runStatement` command
+executes the statement under the cursor and answers with its result.
+
+```sh
+export TESSARIQL_LSP_NODE=127.0.0.1:9080     # the feature flag; unset = off
+export TESSARIQL_LSP_NAMESPACE=prod          # tenancy the catalog reads
+export TESSARIQL_LSP_DATABASE=orders
+export TESSARIQL_LSP_USER=owner              # both user and password, or neither
+export TESSARIQL_LSP_PASSWORD=…              # environment only, never an argument
+```
+
+Without a node — or when the node refuses or is unreachable at startup — the
+server runs exactly as it does without this feature: diagnostics, vocabulary
+completion and hover, no catalog, no run command. An unreachable node never
+fails the start.
+
+Editors wire the run command to a key with three arguments — the document
+uri, the line, and the character — and display the returned string:
+
+```json
+{"command": "tessariql.runStatement", "arguments": ["file:///q.tessariql", 0, 12]}
+```
+
+The live-node integration test (`catalog_completion_and_run_statement_against_a_live_node`)
+spawns the engine itself; point `TESSARIDB_TEST_BIN` at a `tessaridb` binary
+to run it.
 
 ```sh
 docker build -t tessaridb/tessariql-lsp:dev .

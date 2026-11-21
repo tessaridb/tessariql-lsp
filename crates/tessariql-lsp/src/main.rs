@@ -8,15 +8,44 @@
 mod adapter;
 
 use std::process::ExitCode;
+use std::sync::Arc;
 
 use tessariql_lsp_core::Documents;
+use tessariql_lsp_infrastructure::{ConnectionConfig, NodeSession};
+use tokio::sync::Mutex;
 
 #[tokio::main]
 async fn main() -> ExitCode {
     tessariql_lsp_observability::init();
 
+    // The catalog/run features exist only when a node is configured; a
+    // unreachable or refusing node degrades to the SG4 server, never a
+    // failed start — the editor still gets diagnostics and completion.
+    let (node, catalog) = match ConnectionConfig::from_env() {
+        Some(config) => match NodeSession::connect(config.clone()).await {
+            Ok(mut session) => match session.catalog().await {
+                Ok(catalog) => {
+                    tracing::info!(
+                        tables = catalog.tables.len(),
+                        "catalog loaded; catalog completion and run enabled"
+                    );
+                    (Some(Arc::new(Mutex::new(session))), Some(Arc::new(catalog)))
+                }
+                Err(source) => {
+                    tracing::warn!(%source, "catalog fetch failed; running without catalog features");
+                    (None, None)
+                }
+            },
+            Err(source) => {
+                tracing::warn!(%source, "node connect failed; running without catalog features");
+                (None, None)
+            }
+        },
+        None => (None, None),
+    };
+
     let documents = Documents::new().shared();
-    let (service, socket) = adapter::build(documents);
+    let (service, socket) = adapter::build(documents, node, catalog);
     let server = tower_lsp_server::Server::new(tokio::io::stdin(), tokio::io::stdout(), socket)
         .serve(service);
 

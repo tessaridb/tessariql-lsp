@@ -7,7 +7,7 @@
 
 pub mod diagnostics;
 
-pub use diagnostics::{BytePoint, Diagnostic, Severity, analyze};
+pub use diagnostics::{BytePoint, Diagnostic, Severity, analyze, statement_range};
 
 unsafe extern "C" {
     #[link_name = "tree_sitter_tessariql"]

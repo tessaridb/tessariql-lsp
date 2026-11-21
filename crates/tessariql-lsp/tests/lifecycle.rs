@@ -50,7 +50,17 @@ struct Server {
 
 impl Server {
     fn spawn() -> Self {
-        let mut child = Command::new(env!("CARGO_BIN_EXE_tessariql-lsp"))
+        Self::spawn_with_env(&[])
+    }
+
+    /// Spawns with extra environment: the feature-flag tests pass the node
+    /// address without touching process-wide state.
+    fn spawn_with_env(extra: &[(&str, &str)]) -> Self {
+        let mut command = Command::new(env!("CARGO_BIN_EXE_tessariql-lsp"));
+        for (key, value) in extra {
+            command.env(key, value);
+        }
+        let mut child = command
             .stdin(Stdio::piped())
             .stdout(Stdio::piped())
             .stderr(Stdio::null())
@@ -356,4 +366,144 @@ fn hover_explains_keywords_and_functions() {
     server.response(9);
     server.notify("exit", json!({}));
     assert!(server.wait(), "process exits cleanly after exit");
+}
+
+/// SC5: with a node configured, completion offers the catalog (a table that
+/// exists only on the node) and the run command executes the statement under
+/// the cursor. Needs the engine binary: TESSARIQL_LSP live-node tests skip
+/// without it (TESSARIDB_TEST_BIN), and the node this test starts is its own.
+#[test]
+fn catalog_completion_and_run_statement_against_a_live_node() {
+    const CLASS: i64 = 7;
+    let Ok(engine) = std::env::var("TESSARIDB_TEST_BIN") else {
+        eprintln!("TESSARIDB_TEST_BIN not set; skipping the live-node test");
+        return;
+    };
+    let store = std::env::temp_dir().join(format!(
+        "tessariql-lsp-test-{}-{}",
+        std::process::id(),
+        std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .map(|duration| duration.as_nanos())
+            .unwrap_or(0)
+    ));
+    let mut node = Command::new(&engine)
+        .arg(&store)
+        .arg("--serve")
+        .arg("127.0.0.1:47925")
+        .stdout(Stdio::null())
+        .stderr(Stdio::null())
+        .spawn()
+        .expect("engine node spawns");
+    let node_id = node.id();
+
+    let at = |script: &str| {
+        Command::new(&engine)
+            .arg("--at")
+            .arg("127.0.0.1:47925")
+            .arg("-e")
+            .arg(script)
+            .output()
+    };
+    // Wait for the wire port, then declare the tenancy this test reads back.
+    let mut ready = false;
+    for _ in 0..40 {
+        if at("INFO FOR STORE;").is_ok_and(|output| output.status.success()) {
+            ready = true;
+            break;
+        }
+        std::thread::sleep(std::time::Duration::from_millis(250));
+    }
+    assert!(ready, "node never came up on 47925");
+    let setup = at(
+        "DEFINE NAMESPACE app; USE NAMESPACE app; DEFINE DATABASE shop; USE DATABASE shop; DEFINE TABLE widgets (name string); CREATE widgets = { name: 'wrench' };",
+    )
+    .expect("setup runs");
+    assert!(setup.status.success(), "fixture setup refused: {setup:?}");
+
+    let mut server = Server::spawn_with_env(&[
+        ("TESSARIQL_LSP_NODE", "127.0.0.1:47925"),
+        ("TESSARIQL_LSP_NAMESPACE", "app"),
+        ("TESSARIQL_LSP_DATABASE", "shop"),
+    ]);
+    server.request(
+        1,
+        "initialize",
+        json!({"processId": null, "rootUri": null, "capabilities": {}}),
+    );
+    let initialize = server.response(1);
+    assert!(
+        initialize["result"]["capabilities"]["executeCommandProvider"]["commands"]
+            .as_array()
+            .is_some_and(|commands| commands
+                .iter()
+                .any(|command| command == "tessariql.runStatement")),
+        "the run command is advertised"
+    );
+    server.notify("initialized", json!({}));
+
+    let uri = "file:///catalog.tessariql";
+    server.notify(
+        "textDocument/didOpen",
+        json!({
+            "textDocument": {
+                "uri": uri,
+                "languageId": "tessariql",
+                "version": 1,
+                "text": "SELECT * FROM "
+            }
+        }),
+    );
+    server.request(
+        2,
+        "textDocument/completion",
+        json!({
+            "textDocument": {"uri": uri},
+            "position": {"line": 0, "character": 14}
+        }),
+    );
+    let completions = server.response(2)["result"]
+        .as_array()
+        .expect("completion array")
+        .clone();
+    let widget = completions
+        .iter()
+        .find(|item| item["label"] == json!("widgets"))
+        .expect("the node's table is offered from the catalog");
+    assert_eq!(widget["kind"], json!(CLASS), "a table completes as CLASS");
+
+    // The run command executes the statement under the cursor and answers.
+    server.notify(
+        "textDocument/didChange",
+        json!({
+            "textDocument": {"uri": uri, "version": 2},
+            "contentChanges": [{"text": "SELECT * FROM widgets;"}]
+        }),
+    );
+    server.request(
+        3,
+        "workspace/executeCommand",
+        json!({
+            "command": "tessariql.runStatement",
+            "arguments": [uri, 0, 5]
+        }),
+    );
+    let run = server.response(3);
+    let answer = run["result"]
+        .as_str()
+        .expect("the run answers with text: {run}");
+    assert!(
+        answer.contains("record(s), via"),
+        "the read's own answer comes back: {answer}"
+    );
+
+    server.request(9, "shutdown", json!(null));
+    server.response(9);
+    server.notify("exit", json!({}));
+    assert!(server.wait(), "server exits cleanly");
+    let _ = node.kill();
+    let _ = node.wait();
+    let _ = std::fs::remove_dir_all(&store);
+    // Only what this test started is stopped: the node child was killed above.
+    let _ = node_id;
 }

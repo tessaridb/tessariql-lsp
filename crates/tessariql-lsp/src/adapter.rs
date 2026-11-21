@@ -7,25 +7,47 @@
 
 use std::sync::Arc;
 
-use tessariql_lsp_core::{CompletionKind, Documents, complete, hover};
+use tessariql_lsp_core::{
+    CatalogContext, CompletionKind, Documents, catalog_context, complete, hover,
+};
+use tessariql_lsp_infrastructure::{Catalog, NodeSession};
 use tessariql_lsp_types::{DocumentId, DocumentText, DocumentVersion};
+use tokio::sync::Mutex;
 use tower_lsp_server::jsonrpc::Result as LspResult;
 use tower_lsp_server::ls_types::{
     CompletionItem, CompletionItemKind, CompletionOptions, CompletionParams, CompletionResponse,
     Diagnostic as LspDiagnostic, DiagnosticSeverity, DidChangeTextDocumentParams,
-    DidCloseTextDocumentParams, DidOpenTextDocumentParams, Hover, HoverContents, HoverParams,
-    InitializeParams, InitializeResult, InitializedParams, MarkedString, MessageType, Position,
-    Range, ServerCapabilities, ServerInfo, TextDocumentSyncCapability, TextDocumentSyncKind, Uri,
+    DidCloseTextDocumentParams, DidOpenTextDocumentParams, ExecuteCommandOptions,
+    ExecuteCommandParams, Hover, HoverContents, HoverParams, InitializeParams, InitializeResult,
+    InitializedParams, MarkedString, MessageType, Position, Range, ServerCapabilities, ServerInfo,
+    TextDocumentSyncCapability, TextDocumentSyncKind, Uri,
 };
 use tower_lsp_server::{Client, LanguageServer, LspService};
 use tracing::{debug, instrument, warn};
-use tree_sitter_tessariql::{Diagnostic as CoreDiagnostic, analyze};
+use tree_sitter_tessariql::{Diagnostic as CoreDiagnostic, analyze, statement_range};
 
-/// Handler state: the editor-facing client channel and the open documents.
+/// The run-under-cursor command the server registers; the client maps a key
+/// to it with the document uri and cursor position as arguments.
+pub const RUN_STATEMENT_COMMAND: &str = "tessariql.runStatement";
+
+/// Handler state: the editor-facing client channel, the open documents, and
+/// — only when a node is configured — the session and catalog snapshot.
 #[derive(Debug)]
 pub struct Backend {
     client: Client,
     documents: Arc<Documents>,
+    node: Option<Arc<Mutex<NodeSession>>>,
+    catalog: Option<Arc<Catalog>>,
+}
+
+/// A JSON-RPC error with the server's own words — the fork's `Error::new`
+/// takes only a code, so the message travels in the struct.
+fn command_error(message: impl Into<String>) -> tower_lsp_server::jsonrpc::Error {
+    tower_lsp_server::jsonrpc::Error {
+        code: tower_lsp_server::jsonrpc::ErrorCode::InternalError,
+        message: std::borrow::Cow::Owned(message.into()),
+        data: None,
+    }
 }
 
 impl Backend {
@@ -113,6 +135,10 @@ impl LanguageServer for Backend {
                 hover_provider: Some(tower_lsp_server::ls_types::HoverProviderCapability::Simple(
                     true,
                 )),
+                execute_command_provider: Some(ExecuteCommandOptions {
+                    commands: vec![String::from(RUN_STATEMENT_COMMAND)],
+                    ..ExecuteCommandOptions::default()
+                }),
                 ..ServerCapabilities::default()
             },
             server_info: Some(ServerInfo {
@@ -146,7 +172,7 @@ impl LanguageServer for Backend {
         };
         let source = document.text().as_str();
         let offset = position_to_byte_offset(source, &params.text_document_position.position);
-        let items = complete(source, offset)
+        let mut items: Vec<CompletionItem> = complete(source, offset)
             .into_iter()
             .map(|entry| CompletionItem {
                 label: String::from(entry.label),
@@ -159,6 +185,32 @@ impl LanguageServer for Backend {
                 ..CompletionItem::default()
             })
             .collect();
+        if let Some(catalog) = &self.catalog {
+            match catalog_context(source, offset) {
+                Some(CatalogContext::Table) => {
+                    items.extend(catalog.tables.iter().map(|table| CompletionItem {
+                        label: table.clone(),
+                        kind: Some(CompletionItemKind::CLASS),
+                        detail: Some(String::from("table")),
+                        ..CompletionItem::default()
+                    }))
+                }
+                Some(CatalogContext::Field { table }) => items.extend(
+                    catalog
+                        .fields
+                        .get(&table)
+                        .into_iter()
+                        .flatten()
+                        .map(|field| CompletionItem {
+                            label: field.clone(),
+                            kind: Some(CompletionItemKind::FIELD),
+                            detail: Some(format!("field of {table}")),
+                            ..CompletionItem::default()
+                        }),
+                ),
+                None => {}
+            }
+        }
         Ok(Some(CompletionResponse::Array(items)))
     }
 
@@ -178,6 +230,56 @@ impl LanguageServer for Backend {
             contents: HoverContents::Scalar(MarkedString::String(String::from(text))),
             range: None,
         }))
+    }
+
+    async fn execute_command(
+        &self,
+        params: ExecuteCommandParams,
+    ) -> LspResult<Option<serde_json::Value>> {
+        if params.command != RUN_STATEMENT_COMMAND {
+            return Ok(None);
+        }
+        let Some(node) = &self.node else {
+            return Err(command_error(
+                "no node configured; set TESSARIQL_LSP_NODE to enable run",
+            ));
+        };
+        // Arguments: [uri, line, character]. The statement under the cursor is
+        // found on the server, so the client wiring stays three values.
+        let [uri, line, character] = &params.arguments.as_slice()[..3.min(params.arguments.len())]
+        else {
+            return Err(tower_lsp_server::jsonrpc::Error::invalid_params(
+                "runStatement takes [uri, line, character]",
+            ));
+        };
+        let uri_text = uri.as_str().unwrap_or_default();
+        let line = line.as_u64().unwrap_or_default() as usize;
+        let character = character.as_u64().unwrap_or_default() as usize;
+        let id = DocumentId::from_uri(uri_text);
+        let Some(document) = self.documents.get(&id) else {
+            return Err(tower_lsp_server::jsonrpc::Error::invalid_params(
+                "document is not open",
+            ));
+        };
+        let source = document.text().as_str();
+        let offset = position_to_byte_offset(
+            source,
+            &Position {
+                line: u32::try_from(line).unwrap_or(u32::MAX),
+                character: u32::try_from(character).unwrap_or(u32::MAX),
+            },
+        );
+        let Some((start, end)) = statement_range(source, offset) else {
+            return Err(tower_lsp_server::jsonrpc::Error::invalid_params(
+                "no statement at the cursor",
+            ));
+        };
+        let statement = &source[start..end];
+        let mut session = node.lock().await;
+        match session.run_statement(statement).await {
+            Ok(answer) => Ok(Some(serde_json::Value::String(answer))),
+            Err(source) => Err(command_error(source.to_string())),
+        }
     }
 
     #[instrument(skip(self, params), fields(uri = %params.text_document.uri.as_str()))]
@@ -229,6 +331,16 @@ impl LanguageServer for Backend {
 }
 
 /// Builds the service/socket pair: the composition root's only wiring concern.
-pub fn build(documents: Arc<Documents>) -> (LspService<Backend>, tower_lsp_server::ClientSocket) {
-    LspService::build(|client| Backend { client, documents }).finish()
+pub fn build(
+    documents: Arc<Documents>,
+    node: Option<Arc<Mutex<NodeSession>>>,
+    catalog: Option<Arc<Catalog>>,
+) -> (LspService<Backend>, tower_lsp_server::ClientSocket) {
+    LspService::build(|client| Backend {
+        client,
+        documents,
+        node,
+        catalog,
+    })
+    .finish()
 }

@@ -118,3 +118,57 @@ mod tests {
         assert_eq!(diagnostics[0].message, "syntax error");
     }
 }
+
+/// The byte range of the statement containing `byte_offset`, for the
+/// run-under-cursor command. Parses and walks to the deepest statement node
+/// spanning the cursor; None when the cursor sits outside any statement.
+#[must_use]
+pub fn statement_range(source: &str, byte_offset: usize) -> Option<(usize, usize)> {
+    let mut parser = Parser::new();
+    parser.set_language(&crate::language()).ok()?;
+    let tree = parser.parse(source, None)?;
+    // descendant_for_byte_range wants a non-empty span; a cursor is
+    // zero-width, so probe the byte it stands on (the last byte when the
+    // document ends exactly at the cursor).
+    let len = source.len();
+    let probe = byte_offset.min(len.saturating_sub(1));
+    let node = tree
+        .root_node()
+        .descendant_for_byte_range(probe, probe.saturating_add(1))?;
+    let mut current = node;
+    loop {
+        if current.kind().ends_with("_statement") || current.kind() == "statement" {
+            let start = current.start_byte();
+            let mut end = current.end_byte();
+            // The `;` terminates the statement but sits outside its node;
+            // running the text needs it, so the range swallows one.
+            if source.as_bytes().get(end) == Some(&b';') {
+                end += 1;
+            }
+            return Some((start, end));
+        }
+        current = current.parent()?;
+    }
+}
+
+#[cfg(test)]
+mod statement_range_tests {
+    use super::statement_range;
+
+    #[test]
+    fn finds_the_statement_containing_the_cursor() {
+        let source = "LET $x = 1;\nSELECT * FROM people;\n";
+        let second_line = source.find("SELECT").unwrap() + 3;
+        let (start, end) =
+            statement_range(source, second_line).expect("a statement spans the cursor");
+        assert_eq!(&source[start..end], "SELECT * FROM people;");
+    }
+
+    #[test]
+    fn cursor_in_the_middle_of_a_script_still_scores() {
+        let source = "BEGIN; UPDATE people SET age = 1; COMMIT;";
+        let offset = source.find("SET").unwrap();
+        let (start, end) = statement_range(source, offset).expect("statement found");
+        assert_eq!(&source[start..end], "UPDATE people SET age = 1;");
+    }
+}
