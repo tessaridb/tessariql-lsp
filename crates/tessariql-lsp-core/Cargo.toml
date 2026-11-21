@@ -9,6 +9,7 @@ repository.workspace = true
 description = "Domain logic of the TessariQL language server: open documents, analysis inputs"
 
 [dependencies]
+tessariql-lsp-constants.workspace = true
 tessariql-lsp-types.workspace = true
 dashmap.workspace = true
 thiserror.workspace = true

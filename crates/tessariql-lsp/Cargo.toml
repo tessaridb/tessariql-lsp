@@ -13,6 +13,7 @@ tessariql-lsp-constants.workspace = true
 tessariql-lsp-types.workspace = true
 tessariql-lsp-core.workspace = true
 tessariql-lsp-observability.workspace = true
+tree-sitter-tessariql.workspace = true
 tower-lsp-server.workspace = true
 tokio.workspace = true
 tracing.workspace = true

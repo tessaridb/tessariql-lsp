@@ -14,6 +14,7 @@ tessariql-lsp-constants = { version = "0.1.0", path = "crates/tessariql-lsp-cons
 tessariql-lsp-types = { version = "0.1.0", path = "crates/tessariql-lsp-types" }
 tessariql-lsp-core = { version = "0.1.0", path = "crates/tessariql-lsp-core" }
 tessariql-lsp-observability = { version = "0.1.0", path = "crates/tessariql-lsp-observability" }
+tree-sitter-tessariql = { version = "0.1.0", path = "crates/tree-sitter-tessariql" }
 tower-lsp-server = { version = "0.23", features = ["proposed"] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "io-std", "io-util", "signal"] }
 tracing = "0.1"

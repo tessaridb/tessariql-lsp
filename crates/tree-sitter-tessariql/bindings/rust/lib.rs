@@ -5,6 +5,10 @@
 //! `../../corpus/statements` — every statement there parses with no `ERROR`
 //! and no `MISSING` node, and mutated inputs never panic the parser.
 
+pub mod diagnostics;
+
+pub use diagnostics::{BytePoint, Diagnostic, Severity, analyze};
+
 unsafe extern "C" {
     #[link_name = "tree_sitter_tessariql"]
     fn ts_language() -> tree_sitter::Language;
