@@ -1,0 +1,1047 @@
+{
+ "engine": "tessaridb 0.50.0 (debug build, workspace dev 2ce655d4-era)",
+ "generated": "2026-11-21",
+ "sources": [
+  "docs.tessaridb.com/content/query-language/*.md",
+  "content/reference/statements.md",
+  "content/operations/*.md",
+  "content/cluster/*.md",
+  "content/security/*.md",
+  "engine CHANGELOG.md"
+ ],
+ "count": 172,
+ "statements": [
+  {
+   "file": "use-use-namespace-corpus.tessariql",
+   "category": "use",
+   "wrap": "corpus",
+   "statement": "USE NAMESPACE corpus"
+  },
+  {
+   "file": "use-use-database-app.tessariql",
+   "category": "use",
+   "wrap": "corpus",
+   "statement": "USE DATABASE app"
+  },
+  {
+   "file": "use-use-namespace-prod.tessariql",
+   "category": "use",
+   "wrap": "corpus",
+   "statement": "USE NAMESPACE prod"
+  },
+  {
+   "file": "define-tenancy-define-namespace-atlas.tessariql",
+   "category": "define-tenancy",
+   "wrap": "corpus",
+   "statement": "DEFINE NAMESPACE atlas"
+  },
+  {
+   "file": "define-tenancy-define-database-archive.tessariql",
+   "category": "define-tenancy",
+   "wrap": "corpus",
+   "statement": "DEFINE DATABASE archive"
+  },
+  {
+   "file": "define-tenancy-define-database-orders.tessariql",
+   "category": "define-tenancy",
+   "wrap": "prod",
+   "statement": "DEFINE DATABASE orders"
+  },
+  {
+   "file": "define-table-define-collection-people.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE COLLECTION people"
+  },
+  {
+   "file": "define-table-define-table-users-name-string-email-s.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE users (name string, email string, handle string)"
+  },
+  {
+   "file": "define-table-define-table-staff-name-string-team-st.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE staff (name string, team string)"
+  },
+  {
+   "file": "define-table-define-table-if-not-exists-readings-lev.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE IF NOT EXISTS readings (level int)"
+  },
+  {
+   "file": "define-table-define-table-metrics-v-float-store-col.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE metrics (v float) STORE COLUMN"
+  },
+  {
+   "file": "define-table-define-table-tallies-count-int-store-c.tessariql",
+   "category": "define-table",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE tallies (count int) STORE COLUMN PARTITIONS 4 BY count"
+  },
+  {
+   "file": "define-field-define-field-email-on-accounts-type-stri.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD email ON accounts TYPE string"
+  },
+  {
+   "file": "define-field-define-field-seen-at-on-accounts-type-da.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD seen_at ON accounts TYPE datetime"
+  },
+  {
+   "file": "define-field-define-field-owner-on-accounts-type-reco.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD owner ON accounts TYPE record"
+  },
+  {
+   "file": "define-field-define-field-holder-on-ledgers-type-stri.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD holder ON ledgers TYPE string REQUIRED"
+  },
+  {
+   "file": "define-field-define-field-opened-on-ledgers-type-date.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD opened ON ledgers TYPE datetime DEFAULT time::now()"
+  },
+  {
+   "file": "define-field-define-field-body-on-notes-type-string-a.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD body ON notes TYPE string ANALYZER simple"
+  },
+  {
+   "file": "define-field-define-field-team-on-members-type-record.tessariql",
+   "category": "define-field",
+   "wrap": "fresh",
+   "statement": "DEFINE FIELD team ON members TYPE record REFERENCES teams ON DELETE CASCADE"
+  },
+  {
+   "file": "define-index-define-index-by-age-on-people-fields-age.tessariql",
+   "category": "define-index",
+   "wrap": "fresh",
+   "statement": "DEFINE INDEX by_age ON people FIELDS age"
+  },
+  {
+   "file": "define-index-define-index-if-not-exists-by-email-on-u.tessariql",
+   "category": "define-index",
+   "wrap": "fresh",
+   "statement": "DEFINE INDEX IF NOT EXISTS by_email ON users FIELDS email UNIQUE"
+  },
+  {
+   "file": "define-index-define-index-by-name-on-people-fields-la.tessariql",
+   "category": "define-index",
+   "wrap": "fresh",
+   "statement": "DEFINE INDEX by_name ON people FIELDS last, first"
+  },
+  {
+   "file": "define-index-define-index-by-doc-on-orders-fields-doc.tessariql",
+   "category": "define-index",
+   "wrap": "fresh",
+   "statement": "DEFINE INDEX by_doc ON orders FIELDS doc CONTAINS"
+  },
+  {
+   "file": "define-index-define-index-by-body-on-notes-fields-bod.tessariql",
+   "category": "define-index",
+   "wrap": "fresh",
+   "statement": "DEFINE INDEX by_body ON notes FIELDS body SEARCH"
+  },
+  {
+   "file": "define-analyzer-define-analyzer-basic-filters-lowercase.tessariql",
+   "category": "define-analyzer",
+   "wrap": "fresh",
+   "statement": "DEFINE ANALYZER basic FILTERS lowercase, ascii"
+  },
+  {
+   "file": "define-analyzer-define-analyzer-stemmed-en-filters-lower.tessariql",
+   "category": "define-analyzer",
+   "wrap": "fresh",
+   "statement": "DEFINE ANALYZER stemmed_en FILTERS lowercase, stemmer"
+  },
+  {
+   "file": "define-analyzer-define-analyzer-ascii-only-filters-ascii.tessariql",
+   "category": "define-analyzer",
+   "wrap": "fresh",
+   "statement": "DEFINE ANALYZER ascii_only FILTERS ascii"
+  },
+  {
+   "file": "define-event-define-event-big-on-orders-for-update-wh.tessariql",
+   "category": "define-event",
+   "wrap": "corpus",
+   "statement": "DEFINE EVENT big ON orders FOR UPDATE WHEN $after.total > 1000 THEN\n    CREATE review = { order: $id, total: $after.total };"
+  },
+  {
+   "file": "define-event-define-event-tally-on-orders-for-create.tessariql",
+   "category": "define-event",
+   "wrap": "corpus",
+   "statement": "DEFINE EVENT tally ON orders FOR CREATE THEN {\n    LET $line = { order: $id, total: $after.total };\n    CREATE log = $line;\n};"
+  },
+  {
+   "file": "define-graph-define-graph-social.tessariql",
+   "category": "define-graph",
+   "wrap": "fresh",
+   "statement": "DEFINE GRAPH social"
+  },
+  {
+   "file": "define-graph-define-edge-knows-in-social-from-person.tessariql",
+   "category": "define-graph",
+   "wrap": "fresh",
+   "statement": "DEFINE EDGE knows IN social FROM person TO person"
+  },
+  {
+   "file": "define-graph-define-edge-works-at-in-social-from-pers.tessariql",
+   "category": "define-graph",
+   "wrap": "fresh",
+   "statement": "DEFINE EDGE works_at IN social FROM person TO company"
+  },
+  {
+   "file": "define-graph-define-table-person-in-social.tessariql",
+   "category": "define-graph",
+   "wrap": "fresh",
+   "statement": "DEFINE TABLE person IN social"
+  },
+  {
+   "file": "define-retrieval-define-geo-places.tessariql",
+   "category": "define-retrieval",
+   "wrap": "fresh",
+   "statement": "DEFINE GEO places"
+  },
+  {
+   "file": "define-retrieval-define-vector-embeddings-dimension-3-dis.tessariql",
+   "category": "define-retrieval",
+   "wrap": "fresh",
+   "statement": "DEFINE VECTOR embeddings DIMENSION 3 DISTANCE cosine"
+  },
+  {
+   "file": "define-queue-define-queue-jobs-timeout-30s.tessariql",
+   "category": "define-queue",
+   "wrap": "fresh",
+   "statement": "DEFINE QUEUE jobs TIMEOUT 30s"
+  },
+  {
+   "file": "define-queue-define-queue-later-timeout-30s-not-befor.tessariql",
+   "category": "define-queue",
+   "wrap": "fresh",
+   "statement": "DEFINE QUEUE later TIMEOUT 30s NOT BEFORE due"
+  },
+  {
+   "file": "define-queue-define-queue-fast-timeout-1ns-attempts-2.tessariql",
+   "category": "define-queue",
+   "wrap": "fresh",
+   "statement": "DEFINE QUEUE fast TIMEOUT 1ns ATTEMPTS 2"
+  },
+  {
+   "file": "define-topic-define-topic-order-events.tessariql",
+   "category": "define-topic",
+   "wrap": "fresh",
+   "statement": "DEFINE TOPIC order_events"
+  },
+  {
+   "file": "define-topic-define-topic-failed-retain-7d.tessariql",
+   "category": "define-topic",
+   "wrap": "fresh",
+   "statement": "DEFINE TOPIC failed RETAIN 7d"
+  },
+  {
+   "file": "define-topic-define-topic-payments-deduplicate-5m-on.tessariql",
+   "category": "define-topic",
+   "wrap": "fresh",
+   "statement": "DEFINE TOPIC payments DEDUPLICATE 5m ON payment_id"
+  },
+  {
+   "file": "define-topic-define-topic-clicks-retain-bytes-1073741.tessariql",
+   "category": "define-topic",
+   "wrap": "fresh",
+   "statement": "DEFINE TOPIC clicks RETAIN BYTES 1073741824"
+  },
+  {
+   "file": "define-series-define-series-readings-retain-30d-time-a.tessariql",
+   "category": "define-series",
+   "wrap": "fresh",
+   "statement": "DEFINE SERIES readings RETAIN 30d TIME at"
+  },
+  {
+   "file": "define-series-define-series-setpoints-retain-36500d-ti.tessariql",
+   "category": "define-series",
+   "wrap": "fresh",
+   "statement": "DEFINE SERIES setpoints RETAIN 36500d TIME at"
+  },
+  {
+   "file": "define-view-define-view-engineers-as-select-from-s.tessariql",
+   "category": "define-view",
+   "wrap": "corpus",
+   "statement": "DEFINE VIEW engineers AS SELECT * FROM staff WHERE team = 'eng'"
+  },
+  {
+   "file": "define-view-define-view-roster-as-select-name-team.tessariql",
+   "category": "define-view",
+   "wrap": "corpus",
+   "statement": "DEFINE VIEW roster AS SELECT name, team FROM staff"
+  },
+  {
+   "file": "param-use-select-from-people-where-city-city.tessariql",
+   "category": "param-use",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city = $city"
+  },
+  {
+   "file": "backup-backup-script.tessariql",
+   "category": "backup",
+   "wrap": "corpus",
+   "statement": "BACKUP SCRIPT"
+  },
+  {
+   "file": "backup-backup-state-of-namespace-prod.tessariql",
+   "category": "backup",
+   "wrap": "corpus",
+   "statement": "BACKUP STATE OF NAMESPACE prod"
+  },
+  {
+   "file": "backup-backup-of-prod-orders.tessariql",
+   "category": "backup",
+   "wrap": "corpus",
+   "statement": "BACKUP OF prod.orders"
+  },
+  {
+   "file": "admin-info-for-node.tessariql",
+   "category": "admin",
+   "wrap": "corpus",
+   "statement": "INFO FOR NODE"
+  },
+  {
+   "file": "admin-check-table-users.tessariql",
+   "category": "admin",
+   "wrap": "corpus",
+   "statement": "CHECK TABLE users"
+  },
+  {
+   "file": "select-basic-select-from-people.tessariql",
+   "category": "select-basic",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people"
+  },
+  {
+   "file": "select-basic-select-name-age-from-people.tessariql",
+   "category": "select-basic",
+   "wrap": "corpus",
+   "statement": "SELECT name, age FROM people"
+  },
+  {
+   "file": "select-basic-select-from-people-where-city-paris.tessariql",
+   "category": "select-basic",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city = 'Paris'"
+  },
+  {
+   "file": "select-condition-select-from-people-where-city-pari.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city != 'Paris'"
+  },
+  {
+   "file": "select-condition-select-from-people-where-age-none.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE age = NONE"
+  },
+  {
+   "file": "select-condition-select-from-people-where-city-paris.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city = 'Paris' AND age = 17"
+  },
+  {
+   "file": "select-condition-select-from-people-where-city-paris-1.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city = 'Paris' AND (age = 17 OR name = 'grace')"
+  },
+  {
+   "file": "select-condition-select-from-people-where-not-age-17.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE NOT (age = 17)"
+  },
+  {
+   "file": "select-condition-select-from-people-where-tags-contains.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE tags CONTAINS 'urgent'"
+  },
+  {
+   "file": "select-condition-select-from-people-where-urgent-in-t.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE 'urgent' IN tags"
+  },
+  {
+   "file": "select-condition-select-from-orders-where-doc-contains.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM orders WHERE doc CONTAINS { customer: { city: 'Paris' } }"
+  },
+  {
+   "file": "select-condition-select-from-people-where-name-like-ad.tessariql",
+   "category": "select-condition",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE name LIKE 'ad%'"
+  },
+  {
+   "file": "select-order-select-from-people-order-by-name.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people ORDER BY name"
+  },
+  {
+   "file": "select-order-select-from-people-order-by-city-name.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people ORDER BY city, name DESC"
+  },
+  {
+   "file": "select-order-select-name-age-from-people-order-by-ag.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT name, age FROM people ORDER BY age NULLS LAST"
+  },
+  {
+   "file": "select-order-select-from-people-order-by-age-desc-l.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people ORDER BY age DESC LIMIT 5"
+  },
+  {
+   "file": "select-order-select-from-people-order-by-name-after.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people ORDER BY name AFTER people:1 LIMIT 2"
+  },
+  {
+   "file": "select-order-select-from-people-order-by-name-start.tessariql",
+   "category": "select-order",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people ORDER BY name START 1 LIMIT 2"
+  },
+  {
+   "file": "select-group-select-city-count-as-n-from-people-g.tessariql",
+   "category": "select-group",
+   "wrap": "corpus",
+   "statement": "SELECT city, count(*) AS n FROM people GROUP BY city"
+  },
+  {
+   "file": "select-group-select-city-count-as-n-from-people-g-1.tessariql",
+   "category": "select-group",
+   "wrap": "corpus",
+   "statement": "SELECT city, count(*) AS n FROM people GROUP BY city HAVING n > 2"
+  },
+  {
+   "file": "select-group-select-page-approx-distinct-visitor-as.tessariql",
+   "category": "select-group",
+   "wrap": "corpus",
+   "statement": "SELECT page, approx_distinct(visitor) AS users, approx_quantile(ms, 0.99) AS p99 FROM visits GROUP BY page"
+  },
+  {
+   "file": "select-window-select-name-city-row-number-over-pa.tessariql",
+   "category": "select-window",
+   "wrap": "corpus",
+   "statement": "SELECT name, city, row_number() OVER (PARTITION BY city ORDER BY name) AS nth FROM people"
+  },
+  {
+   "file": "select-window-select-n-sum-n-over-order-by-n-as-ru.tessariql",
+   "category": "select-window",
+   "wrap": "corpus",
+   "statement": "SELECT n, sum(n) OVER (ORDER BY n) AS running FROM scores WHERE n > 0"
+  },
+  {
+   "file": "select-join-select-from-users-join-orders-on-users.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users JOIN orders ON users.name = orders.who"
+  },
+  {
+   "file": "select-join-select-from-users-left-join-orders-on.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users LEFT JOIN orders ON users.name = orders.who"
+  },
+  {
+   "file": "select-join-select-from-users-right-join-orders-on.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users RIGHT JOIN orders ON users.name = orders.who"
+  },
+  {
+   "file": "select-join-select-from-users-full-join-orders-on.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users FULL JOIN orders ON users.name = orders.who"
+  },
+  {
+   "file": "select-join-select-users-name-as-who-orders-total-a.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT users.name AS who, orders.total AS spent FROM users JOIN orders ON users.name = orders.who"
+  },
+  {
+   "file": "select-join-select-from-users-join-select-from.tessariql",
+   "category": "select-join",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users JOIN (SELECT * FROM orders WHERE total > 5 LIMIT 100) AS big ON users.name = big.who"
+  },
+  {
+   "file": "select-subquery-select-from-users-where-name-in-selec.tessariql",
+   "category": "select-subquery",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM users WHERE name IN (SELECT who FROM orders LIMIT 100)"
+  },
+  {
+   "file": "select-index-select-from-people-where-city-paris.tessariql",
+   "category": "select-index",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people WHERE city = 'Paris' USING INDEX by_city"
+  },
+  {
+   "file": "select-index-explain-select-from-people-where-city.tessariql",
+   "category": "select-index",
+   "wrap": "corpus",
+   "statement": "EXPLAIN SELECT * FROM people WHERE city = 'Paris'"
+  },
+  {
+   "file": "select-projection-select-omit-address-zip-from-people.tessariql",
+   "category": "select-projection",
+   "wrap": "corpus",
+   "statement": "SELECT * OMIT address.zip FROM people"
+  },
+  {
+   "file": "select-projection-select-from-only-people-1.tessariql",
+   "category": "select-projection",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM ONLY people:1"
+  },
+  {
+   "file": "select-timeout-select-from-people-timeout-5s.tessariql",
+   "category": "select-timeout",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people TIMEOUT 5s"
+  },
+  {
+   "file": "select-version-select-from-people-1-version-5.tessariql",
+   "category": "select-version",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people:1 VERSION 5"
+  },
+  {
+   "file": "select-fulltext-select-from-notes-where-body-matches.tessariql",
+   "category": "select-fulltext",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM notes WHERE body MATCHES 'lovelace'"
+  },
+  {
+   "file": "select-fulltext-select-from-notes-where-body-matches-p.tessariql",
+   "category": "select-fulltext",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM notes WHERE body MATCHES PREFIX 'lovel'"
+  },
+  {
+   "file": "select-fulltext-select-from-notes-where-body-matches-i.tessariql",
+   "category": "select-fulltext",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM notes WHERE body MATCHES INFIX 'pile'"
+  },
+  {
+   "file": "select-fulltext-select-from-notes-where-body-matches-f.tessariql",
+   "category": "select-fulltext",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM notes WHERE body MATCHES FUZZY 'lovelace'"
+  },
+  {
+   "file": "select-fulltext-select-id-from-notes-where-body-matches.tessariql",
+   "category": "select-fulltext",
+   "wrap": "corpus",
+   "statement": "SELECT id FROM notes WHERE body MATCHES 'ada program'"
+  },
+  {
+   "file": "select-vector-select-from-embeddings-order-by-vector.tessariql",
+   "category": "select-vector",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM embeddings ORDER BY vector::cosine(vector, [0.1, 0.2, 0.3]) LIMIT 5"
+  },
+  {
+   "file": "select-vector-select-from-embeddings-order-by-vector-1.tessariql",
+   "category": "select-vector",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM embeddings ORDER BY vector::cosine(vector, [0.1, 0.2, 0.3]) LIMIT 5 APPROXIMATE"
+  },
+  {
+   "file": "select-geo-select-from-places-where-geo-intersec.tessariql",
+   "category": "select-geo",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM places WHERE geo::intersects(geometry, geometry { type: 'Polygon', coordinates: [[[2, 2], [8, 2], [8, 8], [2, 8], [2, 2]]] })"
+  },
+  {
+   "file": "select-geo-select-name-geo-distance-geometry-geo.tessariql",
+   "category": "select-geo",
+   "wrap": "corpus",
+   "statement": "SELECT name, geo::distance(geometry, geometry { type: 'Point', coordinates: [2.0, 2.0] }) AS d FROM places"
+  },
+  {
+   "file": "select-series-select-count-as-held-time-bucket-at.tessariql",
+   "category": "select-series",
+   "wrap": "corpus",
+   "statement": "SELECT count(*) AS held, time::bucket(at, 1h) AS window FROM readings GROUP BY time::bucket(at, 1h)"
+  },
+  {
+   "file": "select-series-select-time-bucket-at-1h-as-hour-cou.tessariql",
+   "category": "select-series",
+   "wrap": "corpus",
+   "statement": "SELECT time::bucket(at, 1h) AS hour, count(*) AS n, mean(v) AS v FROM readings GROUP BY time::bucket(at, 1h) FILL NULL FROM datetime '2026-11-21T08:00:00Z' TO datetime '2026-11-21T13:00:00Z'"
+  },
+  {
+   "file": "select-series-select-sensor-v-at-from-readings-lates.tessariql",
+   "category": "select-series",
+   "wrap": "corpus",
+   "statement": "SELECT sensor, v, at FROM readings LATEST BY sensor"
+  },
+  {
+   "file": "select-graph-select-from-person-1-knows.tessariql",
+   "category": "select-graph",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM person:1->knows"
+  },
+  {
+   "file": "select-graph-select-from-person-1-knows-person.tessariql",
+   "category": "select-graph",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM person:1->knows->person"
+  },
+  {
+   "file": "select-topic-read-from-events.tessariql",
+   "category": "select-topic",
+   "wrap": "corpus",
+   "statement": "READ FROM events"
+  },
+  {
+   "file": "select-topic-read-from-events-for-consumer-billing.tessariql",
+   "category": "select-topic",
+   "wrap": "corpus",
+   "statement": "READ FROM events FOR CONSUMER 'billing' LIMIT 2"
+  },
+  {
+   "file": "select-topic-read-from-events-since-datetime-2026-01.tessariql",
+   "category": "select-topic",
+   "wrap": "corpus",
+   "statement": "READ FROM events SINCE datetime '2026-01-01T00:00:00Z' LIMIT 10"
+  },
+  {
+   "file": "select-fuse-select-label-from-embeddings-order-by-fu.tessariql",
+   "category": "select-fuse",
+   "wrap": "corpus",
+   "statement": "SELECT label FROM embeddings ORDER BY FUSE (vector::cosine(vector, [0.1, 0.2, 0.3]), vector::euclidean(vector, [0.0, 0.0]))"
+  },
+  {
+   "file": "select-consistency-select-from-people-leader.tessariql",
+   "category": "select-consistency",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people LEADER"
+  },
+  {
+   "file": "select-consistency-select-from-people-snapshot.tessariql",
+   "category": "select-consistency",
+   "wrap": "corpus",
+   "statement": "SELECT * FROM people SNAPSHOT"
+  },
+  {
+   "file": "write-create-create-people-7-name-ada-age-17.tessariql",
+   "category": "write-create",
+   "wrap": "corpus",
+   "statement": "CREATE people:7 = { name: 'ada', age: 17, city: 'Paris', tags: ['urgent'] }"
+  },
+  {
+   "file": "write-create-create-people-name-edsger-age-n.tessariql",
+   "category": "write-create",
+   "wrap": "corpus",
+   "statement": "CREATE people = { name: 'edsger', age: NULL, city: 'Lyon' }"
+  },
+  {
+   "file": "write-update-update-people-set-age-18-where-name.tessariql",
+   "category": "write-update",
+   "wrap": "corpus",
+   "statement": "UPDATE people SET age = 18 WHERE name = 'ada' RETURN AFTER"
+  },
+  {
+   "file": "write-update-update-people-merge-checked-true-wh.tessariql",
+   "category": "write-update",
+   "wrap": "corpus",
+   "statement": "UPDATE people MERGE { checked: true } WHERE age > 150 LIMIT 10 RETURN AFTER"
+  },
+  {
+   "file": "write-update-update-people-1-set-name-ada2-return.tessariql",
+   "category": "write-update",
+   "wrap": "corpus",
+   "statement": "UPDATE people:1 SET name = 'ada2' RETURN BEFORE"
+  },
+  {
+   "file": "write-upsert-upsert-people-99-name-new-age-1.tessariql",
+   "category": "write-upsert",
+   "wrap": "corpus",
+   "statement": "UPSERT people:99 = { name: 'new', age: 1 } RETURN AFTER"
+  },
+  {
+   "file": "write-delete-delete-from-people-where-age-5-limit-1.tessariql",
+   "category": "write-delete",
+   "wrap": "corpus",
+   "statement": "DELETE FROM people WHERE age < 5 LIMIT 1"
+  },
+  {
+   "file": "write-delete-delete-from-people-where-age-5-limit-a.tessariql",
+   "category": "write-delete",
+   "wrap": "corpus",
+   "statement": "DELETE FROM people WHERE age < 5 LIMIT ALL"
+  },
+  {
+   "file": "write-delete-delete-people-7-return-before.tessariql",
+   "category": "write-delete",
+   "wrap": "corpus",
+   "statement": "DELETE people:7 RETURN BEFORE"
+  },
+  {
+   "file": "write-relate-relate-person-1-knows-person-2-sin.tessariql",
+   "category": "write-relate",
+   "wrap": "corpus",
+   "statement": "RELATE person:1->knows->person:2 = { since: 1900 }"
+  },
+  {
+   "file": "write-relate-relate-person-1-works-at-company-1.tessariql",
+   "category": "write-relate",
+   "wrap": "corpus",
+   "statement": "RELATE person:1->works_at->company:1"
+  },
+  {
+   "file": "write-release-release-jobs-1.tessariql",
+   "category": "write-release",
+   "wrap": "corpus",
+   "statement": "RELEASE jobs:1"
+  },
+  {
+   "file": "write-release-release-later-1-not-before-10m.tessariql",
+   "category": "write-release",
+   "wrap": "corpus",
+   "statement": "RELEASE later:1 NOT BEFORE 10m"
+  },
+  {
+   "file": "write-release-release-jobs-1-for-consumer-billing.tessariql",
+   "category": "write-release",
+   "wrap": "corpus",
+   "statement": "RELEASE jobs:1 FOR CONSUMER 'billing'"
+  },
+  {
+   "file": "write-insert-insert-into-people-name-age-values.tessariql",
+   "category": "write-insert",
+   "wrap": "corpus",
+   "statement": "INSERT INTO people (name, age) VALUES ('inserted', 1)"
+  },
+  {
+   "file": "transaction-begin-update-people-set-age-18-where.tessariql",
+   "category": "transaction",
+   "wrap": "corpus",
+   "statement": "BEGIN; UPDATE people SET age = 18 WHERE name = 'ada'; COMMIT;"
+  },
+  {
+   "file": "transaction-begin-create-people-name-rolled.tessariql",
+   "category": "transaction",
+   "wrap": "corpus",
+   "statement": "BEGIN; CREATE people = { name: 'rolled', age: 1 }; CANCEL;"
+  },
+  {
+   "file": "transaction-begin-savepoint-sp-insert-into-people.tessariql",
+   "category": "transaction",
+   "wrap": "corpus",
+   "statement": "BEGIN; SAVEPOINT sp; INSERT INTO people (name, age) VALUES ('x', 1); ROLLBACK TO sp; COMMIT;"
+  },
+  {
+   "file": "info-info-for-store.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR STORE"
+  },
+  {
+   "file": "info-info-for-namespace.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR NAMESPACE"
+  },
+  {
+   "file": "info-info-for-database.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR DATABASE"
+  },
+  {
+   "file": "info-info-for-table-users.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR TABLE users"
+  },
+  {
+   "file": "info-info-for-graph-social.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR GRAPH social"
+  },
+  {
+   "file": "info-info-for-history-of-users-1.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR HISTORY OF users:1"
+  },
+  {
+   "file": "let-let-city-paris.tessariql",
+   "category": "let",
+   "wrap": "corpus",
+   "statement": "LET $city = 'Paris'"
+  },
+  {
+   "file": "return-return-open-1-closed-2.tessariql",
+   "category": "return",
+   "wrap": "corpus",
+   "statement": "RETURN { open: 1, closed: 2 }"
+  },
+  {
+   "file": "alter-alter-table-staff-add-field-city-type-st.tessariql",
+   "category": "alter",
+   "wrap": "corpus",
+   "statement": "ALTER TABLE staff ADD FIELD city TYPE string"
+  },
+  {
+   "file": "alter-alter-table-people-rename-field-tags-to.tessariql",
+   "category": "alter",
+   "wrap": "corpus",
+   "statement": "ALTER TABLE people RENAME FIELD tags TO labels"
+  },
+  {
+   "file": "drop-drop-table-scores.tessariql",
+   "category": "drop",
+   "wrap": "corpus",
+   "statement": "DROP TABLE scores"
+  },
+  {
+   "file": "drop-drop-index-if-exists-by-name-on-people.tessariql",
+   "category": "drop",
+   "wrap": "corpus",
+   "statement": "DROP INDEX IF EXISTS by_name ON people"
+  },
+  {
+   "file": "function-select-time-now-as-now-from-people-li.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT time::now() AS now FROM people LIMIT 1"
+  },
+  {
+   "file": "function-select-string-upper-ada-as-up-from-p.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT string::upper('ada') AS up FROM people LIMIT 1"
+  },
+  {
+   "file": "function-select-crypto-sha256-hello-as-digest.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT crypto::sha256('hello') AS digest FROM people LIMIT 1"
+  },
+  {
+   "file": "function-select-math-floor-1-7-as-f-from-people.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT math::floor(1.7) AS f FROM people LIMIT 1"
+  },
+  {
+   "file": "function-select-array-sum-1-2-3-as-total-fr.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT array::sum([1, 2, 3]) AS total FROM people LIMIT 1"
+  },
+  {
+   "file": "function-select-object-has-a-1-a-as-has.tessariql",
+   "category": "function",
+   "wrap": "corpus",
+   "statement": "SELECT object::has({ a: 1 }, 'a') AS has_a FROM people LIMIT 1"
+  },
+  {
+   "file": "define-user-define-user-root-role-owner-password-th.tessariql",
+   "category": "define-user",
+   "wrap": "corpus",
+   "statement": "DEFINE USER root ROLE owner PASSWORD 'the longest one of all';"
+  },
+  {
+   "file": "define-user-define-user-ada-on-corpus-app-role-edito.tessariql",
+   "category": "define-user",
+   "wrap": "corpus",
+   "statement": "DEFINE USER ada ON corpus.app ROLE editor PASSWORD 'correct horse'"
+  },
+  {
+   "file": "define-user-define-user-reader-on-corpus-app-role-vi.tessariql",
+   "category": "define-user",
+   "wrap": "corpus",
+   "statement": "DEFINE USER reader ON corpus.app ROLE viewer PASSWORD 'a long enough one'"
+  },
+  {
+   "file": "define-user-alter-user-reader-set-role-editor.tessariql",
+   "category": "define-user",
+   "wrap": "corpus",
+   "statement": "ALTER USER reader SET ROLE editor"
+  },
+  {
+   "file": "access-grant-read-write-on-users-to-ada.tessariql",
+   "category": "access",
+   "wrap": "corpus",
+   "statement": "GRANT read, write ON users TO ada"
+  },
+  {
+   "file": "access-grant-read-on-users-fields-name-email-t.tessariql",
+   "category": "access",
+   "wrap": "corpus",
+   "statement": "GRANT read ON users FIELDS name, email TO ada"
+  },
+  {
+   "file": "access-revoke-write-on-users-from-ada.tessariql",
+   "category": "access",
+   "wrap": "corpus",
+   "statement": "REVOKE write ON users FROM ada"
+  },
+  {
+   "file": "info-info-for-access-to-table-users.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR ACCESS TO TABLE users"
+  },
+  {
+   "file": "define-vault-define-vault-shared-passphrase-the-team.tessariql",
+   "category": "define-vault",
+   "wrap": "corpus",
+   "statement": "DEFINE VAULT shared PASSPHRASE 'the team passphrase'"
+  },
+  {
+   "file": "vault-op-seal-vault-shared.tessariql",
+   "category": "vault-op",
+   "wrap": "corpus",
+   "statement": "SEAL VAULT shared"
+  },
+  {
+   "file": "vault-op-info-for-seal-of-shared.tessariql",
+   "category": "vault-op",
+   "wrap": "corpus",
+   "statement": "INFO FOR SEAL OF shared"
+  },
+  {
+   "file": "define-kv-define-space-sessions.tessariql",
+   "category": "define-kv",
+   "wrap": "corpus",
+   "statement": "DEFINE SPACE sessions"
+  },
+  {
+   "file": "define-kv-define-space-hot-in-memory-max-100000.tessariql",
+   "category": "define-kv",
+   "wrap": "corpus",
+   "statement": "DEFINE SPACE hot IN MEMORY MAX 100000"
+  },
+  {
+   "file": "define-kv-define-space-recent-max-3.tessariql",
+   "category": "define-kv",
+   "wrap": "corpus",
+   "statement": "DEFINE SPACE recent MAX 3"
+  },
+  {
+   "file": "define-param-define-param-limit-value-1000.tessariql",
+   "category": "define-param",
+   "wrap": "corpus",
+   "statement": "DEFINE PARAM $limit VALUE 1000"
+  },
+  {
+   "file": "define-param-define-param-or-replace-limit-value-500.tessariql",
+   "category": "define-param",
+   "wrap": "corpus",
+   "statement": "DEFINE PARAM OR REPLACE $limit VALUE 5000"
+  },
+  {
+   "file": "define-param-define-param-grace-value-10m.tessariql",
+   "category": "define-param",
+   "wrap": "corpus",
+   "statement": "DEFINE PARAM $grace VALUE 10m"
+  },
+  {
+   "file": "info-info-for-user-root.tessariql",
+   "category": "info",
+   "wrap": "corpus",
+   "statement": "INFO FOR USER root"
+  },
+  {
+   "file": "cluster-define-node-roles-serving-writable-coo.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE NODE ROLES serving, writable, coordinating"
+  },
+  {
+   "file": "cluster-define-node-roles-serving-writable-coo-1.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE NODE ROLES serving, writable, coordinating ENDPOINTS 'db-1.internal:9000'"
+  },
+  {
+   "file": "cluster-define-replica-second-at-db-2-internal.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE REPLICA second AT 'db-2.internal:9000'"
+  },
+  {
+   "file": "cluster-define-replica-third-at-db-3-internal-9.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE REPLICA third AT 'db-3.internal:9000' REPLICATES NAMESPACE prod"
+  },
+  {
+   "file": "cluster-define-replication-east-to-dr-internal.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE REPLICATION east TO 'dr.internal:9080' FOR DATABASE prod.orders"
+  },
+  {
+   "file": "cluster-alter-replication-east-paused.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "ALTER REPLICATION east PAUSED"
+  },
+  {
+   "file": "cluster-info-for-replications.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "INFO FOR REPLICATIONS"
+  },
+  {
+   "file": "cluster-alter-table-sharded-split-at-g.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "ALTER TABLE sharded SPLIT AT 'g'"
+  },
+  {
+   "file": "cluster-define-failover-awareness-1s-collection.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE FAILOVER AWARENESS 1s COLLECTION 1s ROUND 200ms CAMPAIGN 100ms LEASE 800ms BALANCE LEADERSHIPS"
+  },
+  {
+   "file": "cluster-define-failover-awareness-1s-collection-1.tessariql",
+   "category": "cluster",
+   "wrap": "corpus",
+   "statement": "DEFINE FAILOVER AWARENESS 1s COLLECTION 1s ROUND 200ms CAMPAIGN 100ms LEASE 800ms"
+  }
+ ]
+}

@@ -1,0 +1,1 @@
+UPDATE people MERGE { checked: true } WHERE age > 150 LIMIT 10 RETURN AFTER

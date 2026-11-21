@@ -1,14 +1,14 @@
 //! The LSP adapter: protocol calls in, domain calls, protocol answers out.
 //!
 //! Everything here is translation. State transitions live in
-//! [`tessariql_core`]; shared-state discipline: every domain call is a short
+//! [`tessariql_lsp_core`]; shared-state discipline: every domain call is a short
 //! synchronous section, the result is collected, and no guard is held across
 //! an `.await` in this file.
 
 use std::sync::Arc;
 
-use tessariql_core::Documents;
-use tessariql_types::{DocumentId, DocumentText, DocumentVersion};
+use tessariql_lsp_core::Documents;
+use tessariql_lsp_types::{DocumentId, DocumentText, DocumentVersion};
 use tower_lsp_server::jsonrpc::Result as LspResult;
 use tower_lsp_server::ls_types::{
     DidChangeTextDocumentParams, DidCloseTextDocumentParams, DidOpenTextDocumentParams,

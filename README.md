@@ -46,7 +46,7 @@ database's licence. The language server stands on its own:
 
 | path | what it is |
 |---|---|
-| `crates/` | the workspace: `tessariql-constants`, `tessariql-types`, `tessariql-core` (open documents), `tessariql-observability` (tracing to stderr — stdout is the protocol stream), `tessariql-lsp` (the binary: LSP adapter + composition root) |
+| `crates/` | the workspace: `tessariql-lsp-constants`, `tessariql-lsp-types`, `tessariql-lsp-core` (open documents), `tessariql-lsp-observability` (tracing to stderr — stdout is the protocol stream), `tessariql-lsp` (the binary: LSP adapter + composition root) |
 | `docs/DESIGN.md` | the design record — stack choice, grammar strategy, milestones, structure worksheet |
 | `Dockerfile` | two-stage build; the image runs `tessariql-lsp` with stdio as its only interface — no ports on purpose |
 | `corpus/` | TessariQL statements the grammar is checked against (M2) |

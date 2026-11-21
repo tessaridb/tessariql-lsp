@@ -1,7 +1,7 @@
 //! Binary crate: the LSP adapter over the domain, plus the composition root.
 //!
 //! The adapter translates protocol calls into domain calls and back. Document
-//! state lives in `tessariql-core`; this crate holds no business rules — when
+//! state lives in `tessariql-lsp-core`; this crate holds no business rules — when
 //! the transport surface outgrows one file, it splits into its own crate
 //! (recorded decision, see docs/DESIGN.md §Structure).
 
@@ -9,11 +9,11 @@ mod adapter;
 
 use std::process::ExitCode;
 
-use tessariql_core::Documents;
+use tessariql_lsp_core::Documents;
 
 #[tokio::main]
 async fn main() -> ExitCode {
-    tessariql_observability::init();
+    tessariql_lsp_observability::init();
 
     let documents = Documents::new().shared();
     let (service, socket) = adapter::build(documents);

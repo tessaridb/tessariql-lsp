@@ -1,0 +1,1 @@
+DEFINE VIEW roster AS SELECT name, team FROM staff

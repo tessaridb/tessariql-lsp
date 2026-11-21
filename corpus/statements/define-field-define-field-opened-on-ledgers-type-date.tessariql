@@ -1,0 +1,1 @@
+DEFINE FIELD opened ON ledgers TYPE datetime DEFAULT time::now()

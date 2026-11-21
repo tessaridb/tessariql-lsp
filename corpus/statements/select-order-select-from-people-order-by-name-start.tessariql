@@ -1,0 +1,1 @@
+SELECT * FROM people ORDER BY name START 1 LIMIT 2

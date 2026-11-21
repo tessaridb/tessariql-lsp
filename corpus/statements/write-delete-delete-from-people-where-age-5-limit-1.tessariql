@@ -1,0 +1,1 @@
+DELETE FROM people WHERE age < 5 LIMIT 1

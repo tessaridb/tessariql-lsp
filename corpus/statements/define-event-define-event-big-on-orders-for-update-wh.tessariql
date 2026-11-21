@@ -1,0 +1,2 @@
+DEFINE EVENT big ON orders FOR UPDATE WHEN $after.total > 1000 THEN
+    CREATE review = { order: $id, total: $after.total };

@@ -1,0 +1,1 @@
+UPSERT people:99 = { name: 'new', age: 1 } RETURN AFTER

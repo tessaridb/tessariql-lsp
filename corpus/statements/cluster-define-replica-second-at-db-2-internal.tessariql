@@ -1,0 +1,1 @@
+DEFINE REPLICA second AT 'db-2.internal:9000'

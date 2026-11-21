@@ -1,0 +1,1 @@
+DEFINE FIELD team ON members TYPE record REFERENCES teams ON DELETE CASCADE

@@ -1,0 +1,1 @@
+SELECT * FROM embeddings ORDER BY vector::cosine(vector, [0.1, 0.2, 0.3]) LIMIT 5 APPROXIMATE

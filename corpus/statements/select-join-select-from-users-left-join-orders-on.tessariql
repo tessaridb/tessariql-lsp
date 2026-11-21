@@ -1,0 +1,1 @@
+SELECT * FROM users LEFT JOIN orders ON users.name = orders.who

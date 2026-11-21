@@ -68,8 +68,8 @@ Project prefix `tessariql`, kind application.
 
 | trigger (canon M5) | present | crate |
 |---|---|---|
-| application | yes | `tessariql-constants`, `tessariql-types`, `tessariql-core`, binary `tessariql-lsp` |
-| long-running process | yes | `tessariql-observability` (tracing to stderr) |
+| application | yes | `tessariql-lsp-constants`, `tessariql-lsp-types`, `tessariql-lsp-core`, binary `tessariql-lsp` |
+| long-running process | yes | `tessariql-lsp-observability` (tracing to stderr) |
 | persistence | no | — (none; documents are session state) |
 | network API | no | — (LSP-over-stdio is the only surface) |
 | background/queue work | no | — |
@@ -85,8 +85,11 @@ Edges (canon M6): core → types; observability → constants; binary → any li
 No storage, no I/O in core; the domain is synchronous and the adapter keeps
 every domain call a short synchronous section with no guard across `.await`.
 
-Conformance: `rust_structure_check.py --kind application --prefix tessariql`
-exit 0 on the M1 tree (32 rules pass).
+Conformance: `rust_structure_check.py --kind application --prefix tessariql-lsp`
+exit 0 on the M1 tree (32 rules pass). Internal crates carry the
+`tessariql-lsp-` prefix (owner 2026-11-21) so no crate name collides when
+individual crates are published later; the publishable units are the binary
+crate (`tessariql-lsp`) and the grammar crate (`tree-sitter-tessariql`).
 
 ## 5. Milestones
 

@@ -449,28 +449,14 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0bf256ce5efdfa370213c1dabab5935a12e49f2c58d15e9eac2870d3b4f27263"
 
 [[package]]
-name = "tessariql-constants"
-version = "0.1.0"
-
-[[package]]
-name = "tessariql-core"
-version = "0.1.0"
-dependencies = [
- "dashmap",
- "tessariql-types",
- "thiserror",
- "tracing",
-]
-
-[[package]]
 name = "tessariql-lsp"
 version = "0.1.0"
 dependencies = [
  "serde_json",
- "tessariql-constants",
- "tessariql-core",
- "tessariql-observability",
- "tessariql-types",
+ "tessariql-lsp-constants",
+ "tessariql-lsp-core",
+ "tessariql-lsp-observability",
+ "tessariql-lsp-types",
  "thiserror",
  "tokio",
  "tower-lsp-server",
@@ -478,16 +464,30 @@ dependencies = [
 ]
 
 [[package]]
-name = "tessariql-observability"
+name = "tessariql-lsp-constants"
+version = "0.1.0"
+
+[[package]]
+name = "tessariql-lsp-core"
 version = "0.1.0"
 dependencies = [
- "tessariql-constants",
+ "dashmap",
+ "tessariql-lsp-types",
+ "thiserror",
+ "tracing",
+]
+
+[[package]]
+name = "tessariql-lsp-observability"
+version = "0.1.0"
+dependencies = [
+ "tessariql-lsp-constants",
  "tracing",
  "tracing-subscriber",
 ]
 
 [[package]]
-name = "tessariql-types"
+name = "tessariql-lsp-types"
 version = "0.1.0"
 dependencies = [
  "thiserror",

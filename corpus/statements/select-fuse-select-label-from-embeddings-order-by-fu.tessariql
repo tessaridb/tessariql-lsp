@@ -1,0 +1,1 @@
+SELECT label FROM embeddings ORDER BY FUSE (vector::cosine(vector, [0.1, 0.2, 0.3]), vector::euclidean(vector, [0.0, 0.0]))

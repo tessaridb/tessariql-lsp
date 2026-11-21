@@ -1,0 +1,1 @@
+DEFINE INDEX by_name ON people FIELDS last, first

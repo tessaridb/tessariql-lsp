@@ -1,0 +1,1 @@
+CREATE people:7 = { name: 'ada', age: 17, city: 'Paris', tags: ['urgent'] }

@@ -1,0 +1,1 @@
+SELECT * OMIT address.zip FROM people

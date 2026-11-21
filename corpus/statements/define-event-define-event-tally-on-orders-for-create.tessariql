@@ -1,0 +1,4 @@
+DEFINE EVENT tally ON orders FOR CREATE THEN {
+    LET $line = { order: $id, total: $after.total };
+    CREATE log = $line;
+};

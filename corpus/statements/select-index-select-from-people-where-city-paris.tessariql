@@ -1,0 +1,1 @@
+SELECT * FROM people WHERE city = 'Paris' USING INDEX by_city

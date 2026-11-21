@@ -1,0 +1,1 @@
+BEGIN; SAVEPOINT sp; INSERT INTO people (name, age) VALUES ('x', 1); ROLLBACK TO sp; COMMIT;

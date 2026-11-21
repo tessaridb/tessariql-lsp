@@ -1,0 +1,1 @@
+DEFINE TABLE tallies (count int) STORE COLUMN PARTITIONS 4 BY count

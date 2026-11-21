@@ -1,0 +1,1 @@
+DEFINE FIELD seen_at ON accounts TYPE datetime

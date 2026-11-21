@@ -1,0 +1,1 @@
+SELECT object::has({ a: 1 }, 'a') AS has_a FROM people LIMIT 1

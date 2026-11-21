@@ -1,0 +1,1 @@
+DEFINE FIELD owner ON accounts TYPE record

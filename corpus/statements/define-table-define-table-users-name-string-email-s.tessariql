@@ -1,0 +1,1 @@
+DEFINE TABLE users (name string, email string, handle string)

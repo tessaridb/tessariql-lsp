@@ -1,0 +1,1 @@
+SELECT math::floor(1.7) AS f FROM people LIMIT 1

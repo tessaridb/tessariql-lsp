@@ -1,0 +1,1 @@
+BEGIN; CREATE people = { name: 'rolled', age: 1 }; CANCEL;

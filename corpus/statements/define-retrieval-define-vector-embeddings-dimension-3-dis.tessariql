@@ -1,0 +1,1 @@
+DEFINE VECTOR embeddings DIMENSION 3 DISTANCE cosine
