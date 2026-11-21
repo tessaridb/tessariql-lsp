@@ -1,0 +1,23 @@
+[workspace]
+members = ["crates/*"]
+resolver = "3"
+
+[workspace.package]
+edition = "2024"
+rust-version = "1.85"
+license = "Apache-2.0"
+authors = ["boogvar"]
+repository = "https://github.com/tessaridb/tessariql-lsp"
+
+[workspace.dependencies]
+tessariql-constants = { version = "0.1.0", path = "crates/tessariql-constants" }
+tessariql-types = { version = "0.1.0", path = "crates/tessariql-types" }
+tessariql-core = { version = "0.1.0", path = "crates/tessariql-core" }
+tessariql-observability = { version = "0.1.0", path = "crates/tessariql-observability" }
+tower-lsp-server = { version = "0.23", features = ["proposed"] }
+tokio = { version = "1", features = ["macros", "rt-multi-thread", "io-std", "io-util", "signal"] }
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "fmt", "json"] }
+thiserror = "2"
+serde_json = "1"
+dashmap = "6"

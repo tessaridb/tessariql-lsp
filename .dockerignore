@@ -1,0 +1,5 @@
+/target
+.git
+.bgv
+**/*.md
+!README.md
