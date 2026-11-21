@@ -16,8 +16,8 @@ completion, hover and diagnostics the language deserves.
 </div>
 
 > [!NOTE]
-> **In early development.** The server speaks the protocol and syncs documents;
-> completion, hover and diagnostics land milestone by milestone — see
+> **In early development.** The server speaks the protocol, syncs documents,
+> and serves syntax diagnostics, completion and hover — see
 > [**Status**](#status). Checked against **TessariDB 0.50.0**.
 
 Licence: **Apache-2.0**. A language server is infrastructure for everyone who writes
@@ -56,9 +56,9 @@ database's licence. The language server stands on its own:
 | milestone | what it brings | state |
 |---|---|---|
 | M1 | LSP lifecycle over stdio, document sync | done |
-| M2 | resilient TessariQL grammar (tree-sitter), syntax diagnostics | grammar + corpus done — diagnostics on top land next |
-| M3 | completion — keywords, statements, functions |
-| M4 | hover — keywords, statements, functions with doc links |
+| M2 | resilient TessariQL grammar (tree-sitter), syntax diagnostics | done |
+| M3 | completion — keywords, statements, functions | done |
+| M4 | hover — keywords, statements, functions with doc links | done |
 | M5 | catalog-aware completion and run-statement under cursor, behind a connection config |
 | M6 | packaging — VS Code extension, install notes for other editors |
 
