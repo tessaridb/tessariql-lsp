@@ -1,0 +1,62 @@
+{
+  "name": "tessariql",
+  "displayName": "TessariQL language server",
+  "description": "TessariQL language support — diagnostics, completion, hover, run statement — through the tessariql-lsp server.",
+  "version": "0.1.0",
+  "publisher": "tessaridb",
+  "license": "Apache-2.0",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Programming Languages",
+    "Linters",
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:tessariql"
+  ],
+  "main": "./out/client.js",
+  "contributes": {
+    "configuration": {
+      "title": "TessariQL",
+      "properties": {
+        "tessariql.serverPath": {
+          "type": "string",
+          "default": "tessariql-lsp",
+          "description": "Path to the tessariql-lsp binary (an absolute path, or a name found on PATH)."
+        },
+        "tessariql.serverNode": {
+          "type": "string",
+          "default": "",
+          "description": "Optional host:port of a TessariDB node; enables catalog completion and the run command."
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "tessariql.runStatement",
+        "title": "TessariQL: Run statement under cursor"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "tessariql.runStatement",
+        "key": "ctrl+alt+enter",
+        "mac": "cmd+alt+enter",
+        "when": "editorTextFocus"
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p .",
+    "watch": "tsc -w -p .",
+    "package": "vsce package --out tessariql-lsp.vsix"
+  },
+  "devDependencies": {
+    "@types/node": "^20.19.43",
+    "@types/vscode": "^1.85.0",
+    "typescript": "^5.4.0",
+    "vscode-languageclient": "^9.0.1"
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "commonjs", // CJS because the VS Code extension host loads CommonJS mains; ESM is not an option here
+    "target": "es2022",
+    "lib": ["es2022"],
+    "outDir": "out",
+    "rootDir": "src",
+    "sourceMap": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true
+  },
+  "include": ["src"]
+}
