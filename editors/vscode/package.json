@@ -2,7 +2,7 @@
   "name": "tessariql",
   "displayName": "TessariQL language server",
   "description": "TessariQL language support — diagnostics, completion, hover, run statement — through the tessariql-lsp server.",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "publisher": "tessaridb",
   "license": "Apache-2.0",
   "engines": {

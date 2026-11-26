@@ -18,7 +18,7 @@ completion, hover and diagnostics the language deserves.
 > [!NOTE]
 > **In early development.** The server speaks the protocol, syncs documents,
 > and serves syntax diagnostics, completion and hover — see
-> [**Status**](#status). Checked against **TessariDB 0.50.0**.
+> [**Status**](#status). Checked against **TessariDB 0.55.0**.
 
 Licence: **Apache-2.0**. A language server is infrastructure for everyone who writes
 the language, so it is permissively licensed on purpose — the database server is
@@ -49,7 +49,7 @@ database's licence. The language server stands on its own:
 | `crates/` | the workspace: `tessariql-lsp-constants`, `tessariql-lsp-types`, `tessariql-lsp-core` (open documents), `tessariql-lsp-observability` (tracing to stderr — stdout is the protocol stream), `tree-sitter-tessariql` (the grammar: C parser + Rust binding, error-tolerant by construction), `tessariql-lsp` (the binary: LSP adapter + composition root) |
 | `docs/DESIGN.md` | the design record — stack choice, grammar strategy, milestones, structure worksheet |
 | `Dockerfile` | two-stage build; the image runs `tessariql-lsp` with stdio as its only interface — no ports on purpose |
-| `corpus/` | 172 engine-validated TessariQL statements (tessaridb 0.50.0) the grammar is checked against — every statement parses with zero ERROR nodes, and mutation smoke over the corpus never panics the parser |
+| `corpus/` | 181 engine-validated TessariQL statements (tessaridb 0.55.0) the grammar is checked against — every statement parses with zero ERROR nodes, and mutation smoke over the corpus never panics the parser |
 
 ## Status
 
