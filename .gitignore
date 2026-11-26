@@ -3,3 +3,8 @@
 .DS_Store
 editors/vscode/node_modules/
 editors/vscode/out/
+.bgv/
+.githooks/
+AGENTS.md
+CLAUDE.md
+.bgv

@@ -144,6 +144,10 @@
         },
         {
           "type": "SYMBOL",
+          "name": "define_ai_provider_statement"
+        },
+        {
+          "type": "SYMBOL",
           "name": "alter_user_statement"
         },
         {
@@ -633,6 +637,31 @@
                     {
                       "type": "SYMBOL",
                       "name": "number"
+                    },
+                    {
+                      "type": "STRING",
+                      "value": "BY"
+                    },
+                    {
+                      "type": "SYMBOL",
+                      "name": "identifier"
+                    }
+                  ]
+                },
+                {
+                  "type": "BLANK"
+                }
+              ]
+            },
+            {
+              "type": "CHOICE",
+              "members": [
+                {
+                  "type": "SEQ",
+                  "members": [
+                    {
+                      "type": "STRING",
+                      "value": "SORT"
                     },
                     {
                       "type": "STRING",
@@ -2702,6 +2731,99 @@
         }
       ]
     },
+    "define_ai_provider_statement": {
+      "type": "SEQ",
+      "members": [
+        {
+          "type": "STRING",
+          "value": "DEFINE"
+        },
+        {
+          "type": "STRING",
+          "value": "AI"
+        },
+        {
+          "type": "STRING",
+          "value": "PROVIDER"
+        },
+        {
+          "type": "CHOICE",
+          "members": [
+            {
+              "type": "SYMBOL",
+              "name": "if_not_exists"
+            },
+            {
+              "type": "BLANK"
+            }
+          ]
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "URL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": "MODEL"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "string"
+        },
+        {
+          "type": "STRING",
+          "value": "KEY"
+        },
+        {
+          "type": "STRING",
+          "value": "VAULT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "FIELD"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "identifier"
+        },
+        {
+          "type": "STRING",
+          "value": "BUDGET"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "number"
+        },
+        {
+          "type": "STRING",
+          "value": "PER"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
+        },
+        {
+          "type": "STRING",
+          "value": "TIMEOUT"
+        },
+        {
+          "type": "SYMBOL",
+          "name": "duration"
+        }
+      ]
+    },
     "alter_user_statement": {
       "type": "SEQ",
       "members": [
@@ -3156,6 +3278,23 @@
                 {
                   "type": "STRING",
                   "value": "GRAPH"
+                },
+                {
+                  "type": "SYMBOL",
+                  "name": "identifier"
+                }
+              ]
+            },
+            {
+              "type": "SEQ",
+              "members": [
+                {
+                  "type": "STRING",
+                  "value": "AI"
+                },
+                {
+                  "type": "STRING",
+                  "value": "PROVIDER"
                 },
                 {
                   "type": "SYMBOL",

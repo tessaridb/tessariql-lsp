@@ -248,6 +248,24 @@ pub fn hover_doc(word: &str) -> Option<&'static str> {
                 "json" => {
                     "JSON function — parsing and encoding JSON text. See https://docs.tessaridb.com/reference/functions"
                 }
+                "ai" => {
+                    "AI function — one call to the namespace's declared provider, budget-bounded, key sealed in a vault. See https://docs.tessaridb.com/reference/functions"
+                }
+                "url" => {
+                    "URL function — a reading over the text where RFC 3986 splits it; NONE for a text that is no URL. See https://docs.tessaridb.com/reference/functions"
+                }
+                "ip" => {
+                    "IP function — address parsing and range tests over text. See https://docs.tessaridb.com/reference/functions"
+                }
+                "state" => {
+                    "State function — an aggregate's stored state: of, merge and finish over fold_state values. See https://docs.tessaridb.com/reference/functions"
+                }
+                "uuid" => {
+                    "UUID function — readings over identifiers. See https://docs.tessaridb.com/reference/functions"
+                }
+                "series" => {
+                    "Series function — decomposition, outlier and period analytics over a window. See https://docs.tessaridb.com/reference/functions"
+                }
                 _ => "TessariQL function. See https://docs.tessaridb.com/reference/functions",
             });
         }

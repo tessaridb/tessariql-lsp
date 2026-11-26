@@ -1,15 +1,16 @@
 {
- "engine": "tessaridb 0.50.0 (debug build, workspace dev 2ce655d4-era)",
- "generated": "2026-11-21",
+ "engine": "tessaridb 0.55.0-dev (workspace dev 67b12bb4)",
+ "generated": "2026-11-27",
  "sources": [
   "docs.tessaridb.com/content/query-language/*.md",
   "content/reference/statements.md",
   "content/operations/*.md",
   "content/cluster/*.md",
   "content/security/*.md",
-  "engine CHANGELOG.md"
+  "engine CHANGELOG.md",
+  "engine docs/tessariql.md (0.55.0 additions)"
  ],
- "count": 172,
+ "count": 181,
  "statements": [
   {
    "file": "use-use-namespace-corpus.tessariql",
@@ -1042,6 +1043,60 @@
    "category": "cluster",
    "wrap": "corpus",
    "statement": "DEFINE FAILOVER AWARENESS 1s COLLECTION 1s ROUND 200ms CAMPAIGN 100ms LEASE 800ms"
+  },
+  {
+   "file": "define-ai-provider.tessariql",
+   "category": "define",
+   "wrap": "corpus",
+   "statement": "DEFINE AI PROVIDER anthropic URL 'https://api.example.test/v1/messages' MODEL 'a-model' KEY VAULT secrets FIELD anthropic_key BUDGET 1000 PER 1h TIMEOUT 10s"
+  },
+  {
+   "file": "drop-ai-provider.tessariql",
+   "category": "define",
+   "wrap": "corpus",
+   "statement": "DROP AI PROVIDER anthropic"
+  },
+  {
+   "file": "define-table-store-column-sort-by.tessariql",
+   "category": "define",
+   "wrap": "corpus",
+   "statement": "DEFINE TABLE events (at datetime, kind string) STORE COLUMN SORT BY at"
+  },
+  {
+   "file": "select-ai-generate.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT ai::generate('summarise in one line: ' + body) AS short FROM tickets LIMIT 10"
+  },
+  {
+   "file": "select-ai-classify.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT ai::classify(body, ['billing', 'technical']) AS team FROM tickets"
+  },
+  {
+   "file": "select-url-host.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT url::host(link) AS site, url::path(link) AS page FROM visits"
+  },
+  {
+   "file": "select-ip-in-range.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT ip::in_range(client, '10.0.0.0/8') AS internal FROM requests"
+  },
+  {
+   "file": "select-state-of-sum.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT 1 AS half, state::of(sum(total)) AS part FROM payments GROUP BY true"
+  },
+  {
+   "file": "select-state-finish-merge.tessariql",
+   "category": "functions",
+   "wrap": "corpus",
+   "statement": "SELECT state::finish(state::merge(part)) AS total FROM halves GROUP BY true"
   }
  ]
 }

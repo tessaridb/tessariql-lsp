@@ -1,0 +1,1 @@
+SELECT state::finish(state::merge(part)) AS total FROM halves GROUP BY true;

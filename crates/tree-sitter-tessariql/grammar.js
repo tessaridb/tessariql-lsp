@@ -62,6 +62,7 @@ module.exports = grammar({
         $.define_replica_statement,
         $.define_replication_statement,
         $.define_failover_statement,
+        $.define_ai_provider_statement,
         $.alter_user_statement,
         $.alter_table_statement,
         $.alter_replication_statement,
@@ -128,7 +129,7 @@ module.exports = grammar({
         kw("SCHEMAFULL"),
         seq(kw("IN"), $.identifier),
         seq(kw("IDENTITY"), choice(kw("UUID"), kw("COUNTER"), $.identifier)),
-        seq(kw("STORE"), kw("COLUMN"), optional(seq(kw("PARTITIONS"), $.number, kw("BY"), $.identifier))),
+        seq(kw("STORE"), kw("COLUMN"), optional(seq(kw("PARTITIONS"), $.number, kw("BY"), $.identifier)), optional(seq(kw("SORT"), kw("BY"), $.identifier))),
         seq(kw("SPLIT"), kw("AT"), commaSep1($.string)),
         seq(kw("SPLIT"), kw("AUTOMATICALLY")),
         seq(kw("EXPIRE"), optional(seq(kw("AFTER"), $.duration))),
@@ -315,6 +316,19 @@ module.exports = grammar({
         optional(seq(kw("BALANCE"), kw("LEADERSHIPS")))
       ),
 
+    // Every clause is required and none has a default — the engine's own
+    // rule for a value the store would otherwise guess.
+    define_ai_provider_statement: ($) =>
+      seq(
+        kw("DEFINE"), kw("AI"), kw("PROVIDER"), optional($.if_not_exists), $.identifier,
+        kw("URL"), $.string,
+        kw("MODEL"), $.string,
+        kw("KEY"), kw("VAULT"), $.identifier,
+        kw("FIELD"), $.identifier,
+        kw("BUDGET"), $.number, kw("PER"), $.duration,
+        kw("TIMEOUT"), $.duration
+      ),
+
     alter_user_statement: ($) =>
       seq(kw("ALTER"), kw("USER"), $.identifier, kw("SET"),
         choice(
@@ -353,6 +367,7 @@ module.exports = grammar({
           seq(kw("PARAM"), $.parameter),
           seq(kw("VIEW"), $.identifier),
           seq(kw("GRAPH"), $.identifier),
+          seq(kw("AI"), kw("PROVIDER"), $.identifier),
           seq(kw("ANALYZER"), $.identifier)
         ),
         optional(seq(kw("IF"), kw("EXISTS")))

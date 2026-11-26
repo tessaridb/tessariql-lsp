@@ -1,0 +1,1 @@
+SELECT ai::classify(body, ['billing', 'technical']) AS team FROM tickets;

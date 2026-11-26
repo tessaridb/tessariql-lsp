@@ -1,0 +1,1 @@
+DEFINE TABLE events (at datetime, kind string) STORE COLUMN SORT BY at;

@@ -1,0 +1,1 @@
+DEFINE AI PROVIDER anthropic URL 'https://api.example.test/v1/messages' MODEL 'a-model' KEY VAULT secrets FIELD anthropic_key BUDGET 1000 PER 1h TIMEOUT 10s;

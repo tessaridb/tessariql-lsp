@@ -1,0 +1,1 @@
+SELECT 1 AS half, state::of(sum(total)) AS part FROM payments GROUP BY true;

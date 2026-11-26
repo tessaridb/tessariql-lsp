@@ -1,0 +1,1 @@
+SELECT ai::generate('summarise in one line: ' + body) AS short FROM tickets LIMIT 10;
