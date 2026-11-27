@@ -1,12 +1,11 @@
 //! The static TessariQL vocabulary the editor features complete and hover
 //! over: clause keywords, statement starters, and the function catalog.
 //!
-//! Provenance and drift: `FUNCTIONS` is the 166-name catalog re-derived from
-//! the engine's own `Function::ALL` at 0.55.0-dev (workspace dev `67b12bb4`)
-//! — the published reference lags it; `KEYWORDS` and `STATEMENT_STARTERS`
-//! are the clause vocabulary the grammar in `tree-sitter-tessariql` is
-//! authored against (tessaridb 0.55.0-dev). Both regenerate with the corpus
-//! per engine release.
+//! Provenance and drift: `FUNCTIONS` is the 175-name catalog re-derived from
+//! the engine's own `Function::ALL` at 0.56.0 (tag `v0.56.0`) — the published
+//! reference lags it; `KEYWORDS` and `STATEMENT_STARTERS` are the clause
+//! vocabulary the grammar in `tree-sitter-tessariql` is authored against
+//! (tessaridb 0.56.0). Both regenerate with the corpus per engine release.
 
 /// Clause keywords of the language (uppercase, as written).
 pub const KEYWORDS: &[&str] = &[
@@ -326,6 +325,10 @@ pub const FUNCTIONS: &[&str] = &[
     "encoding::hex_decode",
     "geo::area",
     "geo::cell",
+    "geo::cell_children",
+    "geo::cell_level",
+    "geo::cell_neighbours",
+    "geo::cell_parent",
     "geo::contains",
     "geo::covered_by",
     "geo::covers",
@@ -423,6 +426,7 @@ pub const FUNCTIONS: &[&str] = &[
     "time::day",
     "time::day_of_week",
     "time::day_of_year",
+    "time::format",
     "time::from_unix",
     "time::hour",
     "time::minute",
@@ -454,7 +458,11 @@ pub const FUNCTIONS: &[&str] = &[
     "url::query",
     "url::scheme",
     "uuid::instant",
+    "uuid::version",
     "vector::cosine",
     "vector::dot",
     "vector::euclidean",
+    "vector::hamming",
+    "vector::jaccard",
+    "vector::manhattan",
 ];
