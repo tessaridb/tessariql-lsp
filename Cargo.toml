@@ -10,12 +10,12 @@ authors = ["boogvar"]
 repository = "https://github.com/tessaridb/tessariql-lsp"
 
 [workspace.dependencies]
-tessariql-lsp-constants = { version = "0.2.0", path = "crates/tessariql-lsp-constants" }
-tessariql-lsp-types = { version = "0.2.0", path = "crates/tessariql-lsp-types" }
-tessariql-lsp-core = { version = "0.2.0", path = "crates/tessariql-lsp-core" }
-tessariql-lsp-observability = { version = "0.2.0", path = "crates/tessariql-lsp-observability" }
-tessariql-lsp-infrastructure = { version = "0.2.0", path = "crates/tessariql-lsp-infrastructure" }
-tree-sitter-tessariql = { version = "0.2.0", path = "crates/tree-sitter-tessariql" }
+tessariql-lsp-constants = { version = "0.3.0", path = "crates/tessariql-lsp-constants" }
+tessariql-lsp-types = { version = "0.3.0", path = "crates/tessariql-lsp-types" }
+tessariql-lsp-core = { version = "0.3.0", path = "crates/tessariql-lsp-core" }
+tessariql-lsp-observability = { version = "0.3.0", path = "crates/tessariql-lsp-observability" }
+tessariql-lsp-infrastructure = { version = "0.3.0", path = "crates/tessariql-lsp-infrastructure" }
+tree-sitter-tessariql = { version = "0.3.0", path = "crates/tree-sitter-tessariql" }
 tower-lsp-server = { version = "0.23", features = ["proposed"] }
 tokio = { version = "1", features = ["macros", "rt-multi-thread", "io-std", "io-util", "signal"] }
 tracing = "0.1"
